@@ -11,16 +11,15 @@ public class RoomGUi extends JFrame {
     private JPanel textPanel;
     private JTextArea textArea;
     private JTextField textField;
-    private VisabilityManager  manager;
+    private VisibilityManager  manager;
     private Font gamefont;
 
-    ImageIcon image;
-    Font font = new Font("Verdana", Font.BOLD, 12);
+   private ImageIcon image;
 
     public RoomGUi() throws HeadlessException {
 
 
-        //Font
+        //FONT
         InputStream in = getClass().getResourceAsStream("PressStart2P-Regular.ttf");
         try {
             gamefont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(12f);
@@ -109,7 +108,7 @@ public class RoomGUi extends JFrame {
         return textField;
     }
 
-    public void setManager(VisabilityManager manager) {
+    public void setManager(VisibilityManager manager) {
         this.manager = manager;
         textField.addKeyListener(manager);
 

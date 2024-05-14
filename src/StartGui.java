@@ -11,6 +11,7 @@ public class StartGui extends JFrame{
     private JPanel bottonPanel;
 
     public StartGui(Game.StartHandler startHandler) throws HeadlessException, IOException, FontFormatException {
+
         //FONT
         InputStream inputStream = getClass().getResourceAsStream("PressStart2P-Regular.ttf");
         try {
@@ -29,9 +30,6 @@ public class StartGui extends JFrame{
         setLocationRelativeTo(null);
         getContentPane().setBackground(Color.BLACK);
 
-        //HENDLER
-        //hendler = new ScreenHandler();
-
         //TITLE
         titlePanel = new JPanel();
         titlePanel.setBounds(100,100,600,150);
@@ -39,11 +37,9 @@ public class StartGui extends JFrame{
         titleLabel = new JLabel("DEATH-JUNGLE");
         titleLabel.setForeground(Color.GREEN);
         titleLabel.setFont(titleFont);
-        /*InputStream in = getClass().getResourceAsStream("/res/PressStart2P-Regular.ttf");
-        font = Font.createFont(Font.TRUETYPE_FONT, in);
-        titleLabel.setFont(font);*/
 
-        /*//CenteringTitle
+
+     /*   //CenteringTitle
         Box box = new Box(BoxLayout.Y_AXIS);
         box.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         box.add(Box.createVerticalGlue());
@@ -60,7 +56,7 @@ public class StartGui extends JFrame{
         bottonPanel.setBackground(Color.BLACK);
 
 
-
+        //ADDING COMPONENT TO FRAME
         titlePanel.add(titleLabel);
         bottonPanel.add(startBotton);
         add(titlePanel);

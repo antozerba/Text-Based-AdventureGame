@@ -11,7 +11,7 @@ public class Game {
     private StartGui startGui;
     private RoomGUi gui;
     private StartHandler startHandler;
-    private VisabilityManager manager;
+    private VisibilityManager manager;
 
 
 
@@ -32,8 +32,9 @@ public class Game {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            //Creating window for the room access
             gui = new RoomGUi();
-            manager = new VisabilityManager(gui, roomList);
+            manager = new VisibilityManager(gui, roomList);
             gui.setManager(manager);
             startGui.setVisible(false);
         }

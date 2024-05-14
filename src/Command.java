@@ -13,7 +13,7 @@ public class Command {
         manager = new IconManager();
     }
 
-
+    //Method for receiving input form the JTEXTFIELD as a String
     public void receiveInput(String inputCommand){
 
         if(inputCommand.equals(">ok")){
@@ -25,12 +25,12 @@ public class Command {
 
     }
     public void changeRoom(){
-        //Mi serve un metodo per ottonere la stanza giusta
+        //Mi serve un metodo per ottonere la stanza giusta SIMONE dopo dimmi se ce l'hai già
 
         //Metopo per modificare TextArea
         gui.getTextArea().setText(roomArrayList.get(0).getDescription());
 
-        //Creo l'immagine e poi ne facccio una label per inserirla nela pannello
+        //Creating the image and adding to the panel for replacing the old one
         ImageIcon icon = new ImageIcon(manager.iconArray[0].image);
         System.out.println(manager.iconArray[0].image);
         JLabel iconLabel = new JLabel(icon);
