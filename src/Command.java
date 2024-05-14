@@ -5,11 +5,11 @@ import java.util.Arrays;
 public class Command {
     RoomGUi gui;
     IconManager manager;
-    ArrayList<Room> roomArrayList;
+    ArrayList<Room> roomAntoArrayList;
 
-    public Command(RoomGUi roomGUi, ArrayList<Room> rooms) {
+    public Command(RoomGUi roomGUi, ArrayList<Room> roomAntos) {
         gui = roomGUi;
-        roomArrayList = rooms;
+        roomAntoArrayList = roomAntos;
         manager = new IconManager();
     }
 
@@ -28,7 +28,7 @@ public class Command {
         //Mi serve un metodo per ottonere la stanza giusta SIMONE dopo dimmi se ce l'hai già
 
         //Metopo per modificare TextArea
-        gui.getTextArea().setText(roomArrayList.get(0).getDescription());
+        gui.getTextArea().setText(roomAntoArrayList.get(0).getDescription());
 
         //Creating the image and adding to the panel for replacing the old one
         ImageIcon icon = new ImageIcon(manager.iconArray[0].image);

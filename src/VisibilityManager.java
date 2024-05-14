@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class VisibilityManager implements KeyListener {
     Command command;
     RoomGUi gui;
-    ArrayList<Room> roomList;
+    ArrayList<Room> roomAntoList;
 
-    public VisibilityManager(RoomGUi gui, ArrayList<Room> roomList) {
-        this.command = new Command(gui,roomList);
+    public VisibilityManager(RoomGUi gui, ArrayList<Room> roomAntoList) {
+        this.command = new Command(gui, roomAntoList);
         this.gui = gui;
-        this.roomList = roomList;
+        this.roomAntoList = roomAntoList;
     }
 
     @Override
