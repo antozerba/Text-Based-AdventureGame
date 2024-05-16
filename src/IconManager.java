@@ -15,10 +15,10 @@ public class IconManager {
             iconArray[0] = new Icon();
             iconArray[0].setImage(ImageIO.read(new File("src/jungle.png")));
             iconArray[2] = new Icon();
-            iconArray[2].setImage(ImageIO.read(new File("src/savana.png")));
-            /*iconArray[2] = new Icon();
-            iconArray[2].setImage(ImageIO.read(new File("src/savana.png")));
-            iconArray[3] = new Icon();
+            iconArray[2].setImage(ImageIO.read(new File("src/snakeroom.png")));
+            /*iconArray[3] = new Icon();
+            iconArray[3].setImage(ImageIO.read(new File("src/snakerooom.png")));*/
+            /*iconArray[3] = new Icon();
             iconArray[3].setImage(ImageIO.read(new File("src/savana.png")));
             iconArray[4] = new Icon();
             iconArray[4].setImage(ImageIO.read(new File("src/savana.png")));
