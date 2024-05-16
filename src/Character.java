@@ -6,6 +6,11 @@ public class Character {
     private String name;
     private ArrayList<Item> backpack;
 
+    public Character(){
+        this.name = null;
+        this.backpack = new ArrayList<Item>();
+    }
+
     public Character(String name){
         this.name = name;
         this.backpack = new ArrayList<Item>();

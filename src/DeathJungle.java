@@ -7,7 +7,7 @@ public class DeathJungle {
     public static void main(String[] args) throws IOException, FontFormatException {
         Game game = new Game();
         Scanner scan  = new Scanner(System.in);
-        Game1 newGame = new Game1(initialMenu(scan));
+        //Game1 newGame = new Game1(initialMenu(scan));
     }
 
     private static int initialMenu(Scanner scan){

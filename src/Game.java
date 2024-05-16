@@ -2,38 +2,37 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Game {
 
     public static Font titleFont;
-    private  ArrayList<Room> gameRoom;
+    //private  ArrayList<Room> gameRoom;
     private StartGui startGui;
     private RoomGUi gui;
     private StartHandler startHandler;
     private VisibilityManager manager;
+    private Game1 gameRun;
 
     //simone
     //private Scanner scan;
     //private int gameID;
-    private Character mainCharacter;
+    /*private Character mainCharacter;
     private Room actRoom;
     private Room previusRoom;
     //private Room[] gameRoom;
     private Directions directions;
     private final ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("take", "release", "help", "backpack", "now"));
-
+*/
 
 
 
     public Game() throws IOException, FontFormatException {
         startHandler = new StartHandler();
         startGui = new StartGui(startHandler);
-        createRoom();
+        //createRoom();
         //gameRoom = new ArrayList<>();
-        gameRoom.add(new Room("Savana"));
-        gameRoom.add(new Room("Deserto"));
+        //gameRoom.add(new Room("Savana"));
+        //gameRoom.add(new Room("Deserto"));
 
 
     }
@@ -45,14 +44,18 @@ public class Game {
         public void actionPerformed(ActionEvent e) {
             //Creating window for the room access
             gui = new RoomGUi();
-            manager = new VisibilityManager(gui, gameRoom);
+            gameRun = new Game1();
+            gameRun.createRoom();
+            gameRun.setRoom();
+            //gameRun.setRoom();
+            manager = new VisibilityManager(gui, gameRun);
             gui.setManager(manager);
             startGui.setVisible(false);
 
         }
     }
 
-    private void createRoom(){
+    /*private void createRoom(){
         this.gameRoom = new ArrayList<Room>();
         String[] roomName = {"Giugla", "Stanza Pluviale", "Boscaglia", "Sentiero dei Serpenti", "Tempio Perduto", "Camera dei Riti Sacri", "Sala dell'Altare Antico", "Anticamera", "Stanza delle Reliquie Celesti", "Covo delle Anime Perdute", "Stanza degli Enigmi", "Antro dell'Oscurità", "Corridoio dei Destini Intrecciati", "Stanza del Tesoro"};
         for(int i = 0; i < roomName.length; i++){
@@ -128,6 +131,6 @@ public class Game {
         this.gameRoom.get(13).setNeededItems(new ArrayList<Item>(){{add(Item.ChiaveDelTesoroAntico); add(Item.CaliceDelSangueSanto); add(Item.Macete);}});
         this.gameRoom.get(13).setObject(new ArrayList<Item>(){{add(Item.TesoroAntico);}});
         this.gameRoom.get(13).setGrantedDirections(directions.getNOB());
-    }
+    }*/
 
 }

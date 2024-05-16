@@ -1,16 +1,15 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 
 public class VisibilityManager implements KeyListener {
     Command command;
     RoomGUi gui;
-    ArrayList<Room> roomAntoList;
+    Game1 gameRun;
 
-    public VisibilityManager(RoomGUi gui, ArrayList<Room> roomAntoList) {
-        this.command = new Command(gui, roomAntoList);
+    public VisibilityManager(RoomGUi gui, Game1 gameRun) {
+        this.command = new Command(gui, gameRun);
         this.gui = gui;
-        this.roomAntoList = roomAntoList;
+        //this.roomAntoList = roomAntoList;
     }
 
     @Override

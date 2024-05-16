@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class Directions {
 
-    private final ArrayList<String> N = new ArrayList<String>(Arrays.asList("nord"));
+    private final ArrayList<String> NB = new ArrayList<String>(Arrays.asList("nord", "back"));
     private final ArrayList<String> NESOB = new ArrayList<String>(Arrays.asList("nord", "sud", "est", "ovest", "back"));
     private final ArrayList<String> SB = new ArrayList<String>(Arrays.asList("sud", "back"));
     private final ArrayList<String> EB = new ArrayList<String>(Arrays.asList("est", "back"));
@@ -18,8 +18,8 @@ public class Directions {
 
     public Directions() {};
 
-    public ArrayList<String> getN() {
-        return N;
+    public ArrayList<String> getNB() {
+        return NB;
     }
 
     public ArrayList<String> getNESOB() {

@@ -1,8 +1,5 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -45,7 +42,7 @@ public class RoomGUi extends JFrame {
         imagePanel = new JPanel();
         imagePanel.setBounds(0,0,800, 275);
         imagePanel.setBackground(Color.BLACK);
-        BufferedImage myPicture = null;
+        /*BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File("src/jungle.png"));
             System.out.println(ImageIO.read(new File("src/jungle.png")));
@@ -53,7 +50,7 @@ public class RoomGUi extends JFrame {
             throw new RuntimeException(e);
         }
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        imagePanel.add(picLabel);
+        imagePanel.add(picLabel);*/
 
 
         //Spazio Messaggio
@@ -64,7 +61,7 @@ public class RoomGUi extends JFrame {
         textArea.setBackground(Color.BLACK);
         textArea.setForeground(Color.green);
         textArea.setFont(gamefont);
-        textArea.setText("Benvenuti nella giungla, dove ogni passo è una sfida e ogni mistero nasconde un'avventura senza fine. Preparati a scoprire i segreti nascosti tra le fronde e a sfidare le creature selvagge che popolano questo regno inesplorato.");
+        textArea.setText("Ciao avventuriero inserisci il nome del tuo personagqgio: ");
         textArea.setBounds(0, 200, 700, 200);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);

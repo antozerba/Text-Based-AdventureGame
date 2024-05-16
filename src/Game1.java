@@ -15,15 +15,70 @@ public class Game1 {
     private Directions directions;
     private final ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("take", "release", "help", "backpack", "now"));
 
+    public Scanner getScan() {
+        return scan;
+    }
 
-    public Game1(int startGame){
+    public void setScan(Scanner scan) {
+        this.scan = scan;
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+
+    public void setMainCharacter(Character mainCharacter) {
+        this.mainCharacter = mainCharacter;
+    }
+
+    public Room getActRoom() {
+        return actRoom;
+    }
+
+    public void setActRoom(Room actRoom) {
+        this.actRoom = actRoom;
+    }
+
+    public Room getPreviusRoom() {
+        return previusRoom;
+    }
+
+    public void setPreviusRoom(Room previusRoom) {
+        this.previusRoom = previusRoom;
+    }
+
+    public Room[] getGameRoom() {
+        return gameRoom;
+    }
+
+    public void setGameRoom(Room[] gameRoom) {
+        this.gameRoom = gameRoom;
+    }
+
+    public Directions getDirections() {
+        return directions;
+    }
+
+    public void setDirections(Directions directions) {
+        this.directions = directions;
+    }
+
+    public ArrayList<String> getOtherCommands() {
+        return otherCommands;
+    }
+
+    public Game1(){
         this.gameRoom = null;
         this.actRoom = null;
-        this.mainCharacter = null;
+        this.mainCharacter = new Character();
         this.previusRoom = null;
         this.scan = new Scanner(System.in);
         this.directions = new Directions();
-        choiceStart(startGame);
+        startNewGame();
     }
 
     private void choiceStart(int choice){
@@ -40,7 +95,7 @@ public class Game1 {
     }
 
     private void startNewGame(){
-        try{
+        /*try{
             String fileName;
             do{
                 System.out.print("Inserisci un nome per salvare questa partita [senza spazi]: ");
@@ -64,7 +119,7 @@ public class Game1 {
         this.mainCharacter = new Character(name);
         System.out.println("Ciao, sono " + this.mainCharacter.getName() + " e sono l'eroe della tua avventura!");
         System.out.println("Ricordati che nelle varie stanze del gioco puoi trovare degli oggetti che ti possono servire per accedere alle stanze successive, quindi fai sempre attenzione a cercarli bene!");
-        createRoom();
+        createRoom();*/
     }
 
     private String pathName(){
@@ -82,7 +137,7 @@ public class Game1 {
         }
     }
 
-    private void createRoom(){
+    public void createRoom(){
         this.gameRoom = new Room[14];
         String[] roomName = {"Giugla", "Stanza Pluviale", "Boscaglia", "Sentiero dei Serpenti", "Tempio Perduto", "Camera dei Riti Sacri", "Sala dell'Altare Antico", "Anticamera", "Stanza delle Reliquie Celesti", "Covo delle Anime Perdute", "Stanza degli Enigmi", "Antro dell'Oscurità", "Corridoio dei Destini Intrecciati", "Stanza del Tesoro"};
         for(int i = 0; i < gameRoom.length; i++){
@@ -92,14 +147,14 @@ public class Game1 {
         gameRoom[0].setThereIsCharacter(true);
         this.actRoom = gameRoom[0];
         System.out.println(findDescription());
-        setRoom();
-        showItem();
-        gameLoop();
+        //setRoom();
+        //showItem();
+        //gameLoop();
         //System.out.print(findDescription(mainCharacter));
 
     }
 
-    private void actualGameRoom(){
+    public void actualGameRoom(){
         for(int i = 0; i < this.gameRoom.length; i++){
             if(gameRoom[i].getThereIsCharacter()){
                 System.out.println("Ora ti trovi nella stanza: " + this.gameRoom[i].getName());
@@ -133,7 +188,7 @@ public class Game1 {
     }*/
 
     //metodo che contiene tutte le descrizioni delle varie stanze e che grazie in base all'indice passato ritorna la giusta descrizione
-    private String findDescription(){
+    public String findDescription(){
         String[] descriptionRoom = {(this.mainCharacter.getName() + " ti trovi disperso nel bel mezzo della giungla, il tuo scopo è quello di trovare il tempio e impossesarti del tesoro perduto."),
                 ("Ti sei addentrato nella zona della giungla più oscura di tutte e sei finito in un vicolo cieco, ma  mai dire mai che magari qualcosa di utile lo puoi trovare... \n"),
                 ("La tua avventura prosegue, ora ti trovi ancora nel bel mezzo della giungla, sei circondato da una folta vegetazione e da altissimi alberi. Prosegui con la tua avventura...\n"),
@@ -163,10 +218,10 @@ public class Game1 {
         return "";
     }
 
-    private void setRoom(){
+    public void setRoom(){
         //prima stanza, giungla
         this.gameRoom[0].setObject(new ArrayList<Item>(){{add(Item.Torcia);}});
-        this.gameRoom[0].setGrantedDirections(directions.getN());
+        this.gameRoom[0].setGrantedDirections(directions.getNB());
 
         //seconda stanza, stanza pluviale
         this.gameRoom[1].setObject(new ArrayList<Item>() {{add(Item.ChiaveDellAvventuriero);}});
@@ -224,7 +279,7 @@ public class Game1 {
         this.gameRoom[13].setGrantedDirections(directions.getNOB());
     }
     //sono in una stanza, metto un comando tra quelli possibili, se è una direzione mi sposto di stanza, altrimenti mi comporto di conseguenza
-    private void gameLoop(){
+    public void gameLoop(){
         String command;
         String[] splitCommand;
         while(!this.gameRoom[13].getThereIsCharacter() && this.actRoom != this.gameRoom[13]){
@@ -248,16 +303,12 @@ public class Game1 {
                     }else{
                         System.out.print("\nNon hai tutti gli Item necessari per entrare nella stanza!");
                     }
-                }else if (this.otherCommands.contains(splitCommand[0])){
-                    plusCommand(splitCommand);
-                }else {
-                    System.out.println("Non ti puoi muovere in questa direzione! \nInserisci nuovamente il camando per proseguire: ");
                 }
             }while(!actRoom.getGrantedDirections().contains(command));
         }
     }
 
-    private boolean canAccess(Room nextRoom){
+    public boolean canAccess(Room nextRoom){
         //passo tutti gli elementi che il mainCharacter contiene nello zaino
         for(int i = 0; i < this.mainCharacter.getBackpack().size(); i++){
             //confronto gli item con i needed item della stanza, se combaciano li rimuovo sia da una parte che dall'altra
@@ -276,13 +327,17 @@ public class Game1 {
         }
     }
 
-    private Room nextRoom(Room actualRoom, String command){
+    public Room nextRoom(Room actualRoom, String command){
         if(actualRoom == this.gameRoom[0]){
             this.gameRoom[0].setThereIsCharacter(false);
             if(command.equals("nord")){
                 this.gameRoom[2].setThereIsCharacter(true);
                 return this.gameRoom[2];
-            }else{
+            }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
+                return this.previusRoom;
+            }
+            else{
                 return actualRoom;
             }
         }else if(actualRoom == this.gameRoom[1]){
@@ -291,6 +346,7 @@ public class Game1 {
                 this.gameRoom[2].setThereIsCharacter(true);
                 return this.gameRoom[2];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -311,6 +367,7 @@ public class Game1 {
                 this.gameRoom[1].setThereIsCharacter(true);
                 return this.gameRoom[1];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -321,6 +378,7 @@ public class Game1 {
                 this.gameRoom[2].setThereIsCharacter(true);
                 return this.gameRoom[2];
             }else if(command.equals( "back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -334,6 +392,7 @@ public class Game1 {
                 this.gameRoom[2].setThereIsCharacter(true);
                 return this.gameRoom[2];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -347,6 +406,7 @@ public class Game1 {
                 this.gameRoom[6].setThereIsCharacter(true);
                 return this.gameRoom[6];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -363,6 +423,7 @@ public class Game1 {
                 this.gameRoom[5].setThereIsCharacter(true);
                 return this.gameRoom[5];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -389,6 +450,7 @@ public class Game1 {
                 this.gameRoom[5].setThereIsCharacter(true);
                 return this.gameRoom[5];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -405,6 +467,7 @@ public class Game1 {
                 this.gameRoom[8].setThereIsCharacter(true);
                 return this.gameRoom[8];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -415,6 +478,7 @@ public class Game1 {
                 this.gameRoom[9].setThereIsCharacter(true);
                 return this.gameRoom[9];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -425,6 +489,7 @@ public class Game1 {
                 this.gameRoom[8].setThereIsCharacter(true);
                 return this.gameRoom[8];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -438,6 +503,7 @@ public class Game1 {
                 this.gameRoom[9].setThereIsCharacter(true);
                 return this.gameRoom[9];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -448,6 +514,7 @@ public class Game1 {
                 this.gameRoom[12].setThereIsCharacter(true);
                 return this.gameRoom[12];
             }else if(command.equals("back")){
+                this.previusRoom.setThereIsCharacter(true);
                 return this.previusRoom;
             }else{
                 return actualRoom;
@@ -457,7 +524,7 @@ public class Game1 {
         }
     }
 
-    private void plusCommand(String[] command){
+    /*public void plusCommand(String[] command){
         if(command[0].equals("help")){
             helpFunction();
         }else if(command[0].equals("take")){
@@ -475,9 +542,9 @@ public class Game1 {
         }else{
             System.out.println("Commando non riconosciuto");
         }
-    }
+    }*/
 
-    private void helpFunction(){
+    /*public void helpFunction(){
         System.out.print("Questi sono tutti i comandi che puoi usare:\n" +
                 "1) Comandi direzionali [nord, sud, est, ovest] --> ti permettono di spostarti all'interno dellla mappa\n" +
                 "2) Comando [back] --> ti permette di tornare alla stanza precedente\n" +
@@ -486,24 +553,25 @@ public class Game1 {
                 "5) Comando [backpack] --> ti permette di visualizzare quello che c'è nello zaino\n" +
                 "6) Comando [now] --> indica la stanza in cui attualemnte ci troviamo\n" +
                 "Continua con il gioco: ");
-    }
+    }*/
 
-    private void backpackViewer(){
+    /*public void backpackViewer(){
         System.out.print("Nel tuo zaino hai: \n");
         for(int i = 0; i < this.mainCharacter.getBackpack().size(); i++){
             System.out.println(i + ")" + this.mainCharacter.getBackpack().get(i));
         }
         System.out.print("\nContinua con io gioco: ");
-    }
+    }*/
 
-    private void showItem(){
-        System.out.println("\nGli Item presenti in questa stanza sono: ");
+    public String showItem(){
+        String s = ("\nGli Item presenti in questa stanza sono: \n");
         for(int i = 0; i < this.actRoom.getObject().size(); i++){
-            System.out.println(i + ") " + this.actRoom.getObject().get(i).toString());
+            s += (i + ") " + this.actRoom.getObject().get(i).toString() + "\n");
         }
+        return s;
     }
 
-    private void takeFunction(int choice){
+    /*private void takeFunction(int choice){
         if(choice >= 0 && choice < this.actRoom.getObject().size()){
             this.mainCharacter.addItem(this.actRoom.getObject().get(choice));
             this.actRoom.getObject().remove(choice);
@@ -511,13 +579,13 @@ public class Game1 {
         }else{
             System.out.print("\nVolore non valido! \nContinua con il gioco: ");
         }
-    }
+    }*/
 
-    private void nowFunction(){
+    public void nowFunction(){
         System.out.println("Ti trovi nella stanza: " + this.actRoom.getName());
     }
 
-    private void releaseFunction(int choice){
+    public void releaseFunction(int choice){
         if(choice >= 0 && choice < this.mainCharacter.getBackpack().size()){
             this.actRoom.addItem(this.mainCharacter.getBackpack().get(choice));
             this.mainCharacter.getBackpack().remove(choice);
@@ -525,6 +593,25 @@ public class Game1 {
         }else{
             System.out.print("\nVolore non valido! \nContinua con il gioco: ");
         }
+    }
+
+    public void setMainCharacter(String name){
+        this.mainCharacter.setName(name);
+    }
+
+    public Character getMainCharacter(){
+        return this.mainCharacter;
+    }
+    public int getRoomIndex(){
+        for(int i=0; i<this.gameRoom.length; i++){
+            if(gameRoom[i].getThereIsCharacter())
+                return i;
+        }
+        return -1;
+    }
+
+    public Room getRoomByIndex(int index){
+        return this.gameRoom[index];
     }
 
 }

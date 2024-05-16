@@ -112,6 +112,5 @@ public class Room {
         }else{
             return false;
         }
-
     }
 }
