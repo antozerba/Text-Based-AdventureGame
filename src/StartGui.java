@@ -7,13 +7,15 @@ public class StartGui extends JFrame{
     private Font titleFont;
     private JPanel titlePanel;
     private JLabel titleLabel;
-    private JButton startBotton;
+    private JButton startButton;
+    private JButton uploadButton;
     private JPanel bottonPanel;
 
-    public StartGui(Game.StartHandler startHandler) throws HeadlessException, IOException, FontFormatException {
+
+    public StartGui() throws HeadlessException, IOException, FontFormatException {
 
         //FONT
-        InputStream inputStream = getClass().getResourceAsStream("PressStart2P-Regular.ttf");
+        InputStream inputStream = getClass().getResourceAsStream("font/PressStart2P-Regular.ttf");
         try {
             titleFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(45f);
         } catch (FontFormatException e) {
@@ -46,21 +48,35 @@ public class StartGui extends JFrame{
         box.add(titlePanel);
         box.add(Box.createVerticalGlue());*/
 
-        //BOTTON
-        startBotton = new JButton("Start");
-        startBotton.setBackground(Color.BLACK);
-        startBotton.setPreferredSize(new Dimension(120,80));
-        startBotton.addActionListener(startHandler);
+        //STARTYBOTTON
+        startButton = new JButton("Start");
+        startButton.setBackground(Color.BLACK);
+        startButton.setFont(new Font("Arial", Font.PLAIN, 23));
+        startButton.setPreferredSize(new Dimension(120,80));
         bottonPanel = new JPanel();
-        bottonPanel.setBounds(300,300,200,200);
+        bottonPanel.setBounds(250,250,300,200);
         bottonPanel.setBackground(Color.BLACK);
+
+
+        //UPLOADBOTTON
+        uploadButton = new JButton("Upload");
+        uploadButton.setBackground(Color.BLACK);
+        uploadButton.setFont(new Font("Arial", Font.PLAIN, 23));
+        uploadButton.setPreferredSize(new Dimension(120,80));
 
 
         //ADDING COMPONENT TO FRAME
         titlePanel.add(titleLabel);
-        bottonPanel.add(startBotton);
+        bottonPanel.add(startButton);
+        bottonPanel.add(uploadButton);
         add(titlePanel);
         add(bottonPanel);
         setVisible(true);
+    }
+    public void setStartHandler(Game.StartHandler hendler){
+        startButton.addActionListener(hendler);
+    }
+    public void setUploadHendler(Game.UploadHendler hendler){
+        uploadButton.addActionListener(hendler);
     }
 }

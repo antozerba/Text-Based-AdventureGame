@@ -3,10 +3,10 @@ import javax.swing.*;
 public class Command {
     RoomGUi gui;
     IconManager manager;
-    Game1 gameRun;
-    public Command(RoomGUi roomGUi, Game1 gameRun) {
+    Logic logic;
+    public Command(RoomGUi roomGUi, Logic logic) {
         gui = roomGUi;
-        this.gameRun = gameRun;
+        this.logic = logic;
         manager = new IconManager();
     }
 
@@ -15,21 +15,21 @@ public class Command {
         String[] splitInputCommand;
         inputCommand = inputCommand.toLowerCase();
         splitInputCommand = inputCommand.split(" ");
-        if(this.gameRun.getActRoom().getGrantedDirections().contains(splitInputCommand[0])){
-            Room futureRoom = this.gameRun.nextRoom(this.gameRun.getActRoom(), inputCommand);
-            if(this.gameRun.canAccess(futureRoom)){
-                this.gameRun.setPreviusRoom(this.gameRun.getActRoom());
-                this.gameRun.setActRoom(futureRoom);
+        if(this.logic.getActRoom().getGrantedDirections().contains(splitInputCommand[0])){
+            Room futureRoom = this.logic.nextRoom(this.logic.getActRoom(), inputCommand);
+            if(this.logic.canAccess(futureRoom)){
+                this.logic.setPreviusRoom(this.logic.getActRoom());
+                this.logic.setActRoom(futureRoom);
                 gui.getTextField().setText("");
                 changeRoom();
             }
         }else if(inputCommand.equals(">simone")){
             System.out.println(inputCommand);
-            this.gameRun.setMainCharacter(inputCommand);
-            System.out.println("Il nome del tuo personaggio è: " + this.gameRun.getMainCharacter().getName());
+            this.logic.setMainCharacter(inputCommand);
+            System.out.println("Il nome del tuo personaggio è: " + this.logic.getMainCharacter().getName());
             firstRoom();
             gui.getTextField().setText("");
-        }else if(this.gameRun.getOtherCommands().contains(splitInputCommand[0])){
+        }else if(this.logic.getOtherCommands().contains(splitInputCommand[0])){
             plusCommand(splitInputCommand);
             gui.getTextField().setText("");
         }else {
@@ -48,7 +48,7 @@ public class Command {
     }
 
     private void firstRoom() {
-        gui.getTextArea().setText(gameRun.getRoomByIndex(0).getDescription() + "\n" + this.gameRun.showItem());
+        gui.getTextArea().setText(logic.getRoomByIndex(0).getDescription() + "\n" + this.logic.showItem());
         ImageIcon icon = new ImageIcon(manager.iconArray[0].image);
         System.out.println(manager.iconArray[0].image);
         JLabel iconLabel = new JLabel(icon);
@@ -62,9 +62,9 @@ public class Command {
     }
     public void changeRoom(){
         //Mi serve un metodo per ottonere la stanza giusta SIMONE dopo dimmi se ce l'hai già
-        int actIndex = this.gameRun.getRoomIndex();
+        int actIndex = this.logic.getRoomIndex();
         //Metopo per modificare TextArea
-        gui.getTextArea().setText(gameRun.findDescription() + "\n" + this.gameRun.showItem());
+        gui.getTextArea().setText(logic.findDescription() + "\n" + this.logic.showItem());
 
         //Creating the image and adding to the panel for replacing the old one
         ImageIcon icon = new ImageIcon(manager.iconArray[actIndex].image);
@@ -110,17 +110,17 @@ public class Command {
 
     public void backpackViewer(){
         String s = ("Nel tuo zaino hai: \n");
-        for(int i = 0; i < this.gameRun.getMainCharacter().getBackpack().size(); i++){
-            s += (i + ")" + this.gameRun.getMainCharacter().getBackpack().get(i) + "\n");
+        for(int i = 0; i < this.logic.getMainCharacter().getBackpack().size(); i++){
+            s += (i + ")" + this.logic.getMainCharacter().getBackpack().get(i) + "\n");
         }
         gui.getTextArea().setText(s);
     }
 
     private void takeFunction(int choice){
-        if(choice >= 0 && choice < this.gameRun.getActRoom().getObject().size()){
-            this.gameRun.getMainCharacter().addItem(this.gameRun.getActRoom().getObject().get(choice));
-            gui.getTextArea().setText("Hai raccolto: " + this.gameRun.getActRoom().getObject().get(choice));
-            this.gameRun.getActRoom().getObject().remove(choice);
+        if(choice >= 0 && choice < this.logic.getActRoom().getObject().size()){
+            this.logic.getMainCharacter().addItem(this.logic.getActRoom().getObject().get(choice));
+            gui.getTextArea().setText("Hai raccolto: " + this.logic.getActRoom().getObject().get(choice));
+            this.logic.getActRoom().getObject().remove(choice);
 
         }else{
             System.out.println("coglione");

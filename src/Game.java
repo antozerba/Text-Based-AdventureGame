@@ -10,8 +10,9 @@ public class Game {
     private StartGui startGui;
     private RoomGUi gui;
     private StartHandler startHandler;
+    private UploadHendler uploadHendler;
     private VisibilityManager manager;
-    private Game1 gameRun;
+    private Logic logic;
 
     //simone
     //private Scanner scan;
@@ -28,7 +29,10 @@ public class Game {
 
     public Game() throws IOException, FontFormatException {
         startHandler = new StartHandler();
-        startGui = new StartGui(startHandler);
+        uploadHendler = new UploadHendler();
+        startGui = new StartGui();
+        startGui.setStartHandler(startHandler);
+        startGui.setUploadHendler(uploadHendler);
         //createRoom();
         //gameRoom = new ArrayList<>();
         //gameRoom.add(new Room("Savana"));
@@ -44,13 +48,20 @@ public class Game {
         public void actionPerformed(ActionEvent e) {
             //Creating window for the room access
             gui = new RoomGUi();
-            gameRun = new Game1();
-            gameRun.createRoom();
-            gameRun.setRoom();
+            logic = new Logic();
+            logic.createRoom();
+            logic.setRoom();
             //gameRun.setRoom();
-            manager = new VisibilityManager(gui, gameRun);
+            manager = new VisibilityManager(gui, logic);
             gui.setManager(manager);
             startGui.setVisible(false);
+
+        }
+    }
+    class UploadHendler implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
 
         }
     }

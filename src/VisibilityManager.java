@@ -4,10 +4,10 @@ import java.awt.event.KeyListener;
 public class VisibilityManager implements KeyListener {
     Command command;
     RoomGUi gui;
-    Game1 gameRun;
+    Logic logic;
 
-    public VisibilityManager(RoomGUi gui, Game1 gameRun) {
-        this.command = new Command(gui, gameRun);
+    public VisibilityManager(RoomGUi gui, Logic logic) {
+        this.command = new Command(gui, logic);
         this.gui = gui;
         //this.roomAntoList = roomAntoList;
     }

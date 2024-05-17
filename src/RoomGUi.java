@@ -1,5 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -17,7 +20,7 @@ public class RoomGUi extends JFrame {
 
 
         //FONT
-        InputStream in = getClass().getResourceAsStream("PressStart2P-Regular.ttf");
+        InputStream in = getClass().getResourceAsStream("font/PressStart2P-Regular.ttf");
         try {
             gamefont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(12f);
         } catch (FontFormatException e) {
@@ -27,12 +30,13 @@ public class RoomGUi extends JFrame {
         }
 
 
-        //Icon
-        image = new ImageIcon("images/jungle.png");
+       /* //Icon
+        image = new ImageIcon("images/tes.png");*/
 
         //Frame
         setSize(800,600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setLayout(null);
         setLocationRelativeTo(null);
         getContentPane().setBackground(Color.BLACK);
@@ -40,17 +44,16 @@ public class RoomGUi extends JFrame {
 
         //Spazio Immagine
         imagePanel = new JPanel();
-        imagePanel.setBounds(0,0,800, 275);
+        imagePanel.setBounds(0,10,800, 275);
         imagePanel.setBackground(Color.BLACK);
-        /*BufferedImage myPicture = null;
+        BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("src/jungle.png"));
-            System.out.println(ImageIO.read(new File("src/jungle.png")));
+            myPicture = ImageIO.read(new File("src/images/tes.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        imagePanel.add(picLabel);*/
+        imagePanel.add(picLabel);
 
 
         //Spazio Messaggio

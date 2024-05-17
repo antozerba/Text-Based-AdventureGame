@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 //classe principale del gioco
 
-public class Game1 {
+public class Logic {
     //attributi di Game
     private Scanner scan;
     private int gameID;
@@ -71,7 +71,7 @@ public class Game1 {
         return otherCommands;
     }
 
-    public Game1(){
+    public Logic(){
         this.gameRoom = null;
         this.actRoom = null;
         this.mainCharacter = new Character();
