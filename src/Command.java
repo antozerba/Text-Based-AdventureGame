@@ -15,9 +15,16 @@ public class Command {
         String[] splitInputCommand;
         inputCommand = inputCommand.toLowerCase();
         splitInputCommand = inputCommand.split(" ");
-        if(this.logic.getActRoom().getGrantedDirections().contains(splitInputCommand[0])){
+        if(this.logic.getActRoom().getGrantedDirections().contains(splitInputCommand[0]) || this.logic.getRiddleAnswers().contains(splitInputCommand[0])) {
             Room futureRoom = this.logic.nextRoom(this.logic.getActRoom(), inputCommand);
-            if(this.logic.canAccess(futureRoom)){
+             /*if(futureRoom.equals(this.logic.getRoomByIndex(6))){
+                if(indovinelliTempio(inputCommand, futureRoom)){
+                    this.logic.setPreviusRoom(this.logic.getActRoom());
+                    this.logic.setActRoom(futureRoom);
+                    gui.getTextField().setText("");
+                    changeRoom();
+                }
+            }else*/ if(this.logic.canAccess(futureRoom)){
                 this.logic.setPreviusRoom(this.logic.getActRoom());
                 this.logic.setActRoom(futureRoom);
                 gui.getTextField().setText("");
@@ -33,7 +40,8 @@ public class Command {
             plusCommand(splitInputCommand);
             gui.getTextField().setText("");
         }else {
-            System.out.println("Non ti puoi muovere in questa direzione! \nInserisci nuovamente il camando per proseguire: ");
+            gui.getTextArea().setText("Comando non riconosciuto!");
+            gui.getTextField().setText("");
         }
         /*gameRun.nextRoom(gameRun.getActRoom(), inputCommand);
 
@@ -89,7 +97,7 @@ public class Command {
             //releaseFunction(choice);
             return;
         }else if(command[0].equals("now")){
-            //nowFunction();
+            nowFunction();
         }else if(command[0].equals("backpack")){
             backpackViewer();
         }else{
@@ -126,6 +134,24 @@ public class Command {
             System.out.println("coglione");
         }
 
+    }
+
+    public void nowFunction(){
+        gui.getTextArea().setText("Ti trovi: " + this.logic.getActRoom().getName());
+        gui.getTextField().setText("");
+    }
+
+    public boolean indovinelliTempio(String risposta, Room futureRoom){
+        gui.getTextField().setText("");
+        gui.getTextArea().setText("Per poter accedere al Tempio Perduto devi risolvere l'indovinello!\n La mia vita può durare qualche ora, quello che produco mi divora. Sottile sono veloce, grossa sono lenta e il vento molto mi spaventa. Chi sono?");
+        risposta = risposta.toLowerCase();
+        if((risposta.equals("candela") || risposta.equals("la candela")) && this.logic.canAccess(futureRoom)){
+            gui.getTextArea().setText("Complimenti hai indovinato, puoi proseguire con la tua avventura!");
+            gui.getTextField().setText("");
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

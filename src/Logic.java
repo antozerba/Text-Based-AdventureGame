@@ -15,6 +15,8 @@ public class Logic {
     private Directions directions;
     private final ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("take", "release", "help", "backpack", "now"));
 
+    private final ArrayList<String> riddleAnswers = new ArrayList<String>(Arrays.asList("candela", "la candela"));
+
     public Scanner getScan() {
         return scan;
     }
@@ -79,6 +81,10 @@ public class Logic {
         this.scan = new Scanner(System.in);
         this.directions = new Directions();
         startNewGame();
+    }
+
+    public ArrayList<String> getRiddleAnswers() {
+        return riddleAnswers;
     }
 
     private void choiceStart(int choice){
@@ -194,7 +200,7 @@ public class Logic {
                 ("La tua avventura prosegue, ora ti trovi ancora nel bel mezzo della giungla, sei circondato da una folta vegetazione e da altissimi alberi. Prosegui con la tua avventura...\n"),
                 ("Caspita, " + this.mainCharacter.getName() + " sei finito in una delle zone più pericolose della giungla, il sentiero dei Serpenti.\n" +
                         "L'unico modo per escirne vivo è quello di uccidere tutti i serpenti, spero tu abbia tutto il necessario per riuscirci."),
-                ("Complimenti " + this.mainCharacter.getName() + " sei riuscito a trovare la strada per il Tempio Perduto. Ora però non è così facile entrarci, per fare ciò dovrai risolvere un indovinello per sblocare \n" +
+                ("Complimenti " + this.mainCharacter.getName() + " sei riuscito a trovare la strada per il Tempio Perduto. Ora però non è così facile entrarci, per fare ciò dovrai risolvere un indovinello per sbloccare \n" +
                         "la porta e poi avrai bisogno di due chiavi per aprirla..."),
                 ("Sei entrato nella Camera dei Riti Sacri, anticamente usata per compiere rituali spirituali e religiosi.\n Prosegui con la tua avventura..."),
                 ("Se sei arrivato fino a qui vuol dire che sei riuscito a risolvere l'enigma, ora non ti resta che trovare la stanza del Tesoro Perduto, buona fortuna!"),
@@ -274,7 +280,7 @@ public class Logic {
         this.gameRoom[12].setGrantedDirections(directions.getESB());
 
         //quattordicesima stanza, Stanza del Tesoro
-        this.gameRoom[13].setNeededItems(new ArrayList<Item>(){{add(Item.ChiaveDelTesoroAntico); add(Item.CaliceDelSangueSanto); add(Item.Macete);}});
+        this.gameRoom[13].setNeededItems(new ArrayList<Item>(){{add(Item.ChiaveDelTesoroAntico); add(Item.CaliceDelSangueSanto); }});
         this.gameRoom[13].setObject(new ArrayList<Item>(){{add(Item.TesoroAntico);}});
         this.gameRoom[13].setGrantedDirections(directions.getNOB());
     }
@@ -323,6 +329,7 @@ public class Logic {
             System.out.println("Hai tutti gli Item");
             return true;
         }else{
+            System.out.println("Non hai tutti gli item neccesari per entrare in questa stanza!");
             return false;
         }
     }
@@ -581,9 +588,9 @@ public class Logic {
         }
     }*/
 
-    public void nowFunction(){
+    /*public void nowFunction(){
         System.out.println("Ti trovi nella stanza: " + this.actRoom.getName());
-    }
+    }*/
 
     public void releaseFunction(int choice){
         if(choice >= 0 && choice < this.mainCharacter.getBackpack().size()){
