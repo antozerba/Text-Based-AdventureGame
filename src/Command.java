@@ -1,9 +1,12 @@
+import org.apache.commons.configuration.ConfigurationException;
+
 import javax.swing.*;
 
 public class Command {
     RoomGUi gui;
     IconManager manager;
     Logic logic;
+    Saving saving;
     public int count =0;
 
     public Command(RoomGUi roomGUi, Logic logic) {
@@ -106,7 +109,12 @@ public class Command {
         }else if(command[0].equals("backpack")){
             backpackViewer();
         }else if(command[0].equals("save")) {
-            save();
+            try{
+                save();
+            }
+            catch (Exception e){
+                System.out.println(e);
+            }
         }else{
             System.out.println("Commando non riconosciuto");
         }
@@ -160,7 +168,9 @@ public class Command {
             return false;
         }
     }
-    public boolean save(){
+    public boolean save() throws ConfigurationException {
+        saving = new Saving();
+        saving.save();
         return true;
     }
 

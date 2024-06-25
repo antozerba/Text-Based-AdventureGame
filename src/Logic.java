@@ -13,7 +13,7 @@ public class Logic {
     private Room previusRoom;
     private Room[] gameRoom;
     private Directions directions;
-    private final ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("take", "release", "help", "backpack", "now"));
+    private final ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("take", "release", "help", "backpack", "now", "save"));
 
     private final ArrayList<String> riddleAnswers = new ArrayList<String>(Arrays.asList("candela", "la candela"));
 
