@@ -195,7 +195,7 @@ public class Logic {
 
     //metodo che contiene tutte le descrizioni delle varie stanze e che grazie in base all'indice passato ritorna la giusta descrizione
     public String findDescription(){
-        String[] descriptionRoom = {(this.mainCharacter.getName() + " ti trovi disperso nel bel mezzo della giungla, il tuo scopo è quello di trovare il tempio e impossesarti del tesoro perduto."),
+        String[] descriptionRoom = {(" ti trovi disperso nel bel mezzo della giungla, il tuo scopo è quello di trovare il tempio e impossesarti del tesoro perduto."),
                 ("Ti sei addentrato nella zona della giungla più oscura di tutte e sei finito in un vicolo cieco, ma  mai dire mai che magari qualcosa di utile lo puoi trovare... \n"),
                 ("La tua avventura prosegue, ora ti trovi ancora nel bel mezzo della giungla, sei circondato da una folta vegetazione e da altissimi alberi. Prosegui con la tua avventura...\n"),
                 ("Caspita, " + this.mainCharacter.getName() + " sei finito in una delle zone più pericolose della giungla, il sentiero dei Serpenti.\n" +

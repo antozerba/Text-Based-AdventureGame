@@ -1,5 +1,7 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -72,11 +74,15 @@ public class RoomGUi extends JFrame {
 
 
         //Input Commnad
-        textField = new JTextField(">");
+        textField = new JTextField("");
         textField.setBackground(Color.BLACK);
         textField.setForeground(Color.green);
         textField.setFont(gamefont);
         textField.setPreferredSize(new Dimension(700,20));
+        Border border = LineBorder.createBlackLineBorder();
+        Border coloredBorder = new LineBorder(Color.GREEN, 1);
+        textField.setBorder(coloredBorder);
+
         JLabel inputLabel = new JLabel("Inserisci comando:");
         inputLabel.setForeground(Color.green);
         inputLabel.setPreferredSize(new Dimension(300, 40));

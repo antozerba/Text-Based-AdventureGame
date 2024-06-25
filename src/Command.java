@@ -4,6 +4,8 @@ public class Command {
     RoomGUi gui;
     IconManager manager;
     Logic logic;
+    public int count =0;
+
     public Command(RoomGUi roomGUi, Logic logic) {
         gui = roomGUi;
         this.logic = logic;
@@ -30,7 +32,8 @@ public class Command {
                 gui.getTextField().setText("");
                 changeRoom();
             }
-        }else if(inputCommand.equals(">simone")){
+        }else if(count == 0){
+            count++;
             System.out.println(inputCommand);
             this.logic.setMainCharacter(inputCommand);
             System.out.println("Il nome del tuo personaggio è: " + this.logic.getMainCharacter().getName());
@@ -56,7 +59,9 @@ public class Command {
     }
 
     private void firstRoom() {
-        gui.getTextArea().setText(logic.getRoomByIndex(0).getDescription() + "\n" + this.logic.showItem());
+        String s = logic.getMainCharacter().getName();
+        System.out.println(s);
+        gui.getTextArea().setText(s + logic.getRoomByIndex(0).getDescription() + "\n" + this.logic.showItem());
         ImageIcon icon = new ImageIcon(manager.iconArray[0].image);
         System.out.println(manager.iconArray[0].image);
         JLabel iconLabel = new JLabel(icon);
@@ -100,6 +105,8 @@ public class Command {
             nowFunction();
         }else if(command[0].equals("backpack")){
             backpackViewer();
+        }else if(command[0].equals("save")) {
+            save();
         }else{
             System.out.println("Commando non riconosciuto");
         }
@@ -152,6 +159,9 @@ public class Command {
         }else{
             return false;
         }
+    }
+    public boolean save(){
+        return true;
     }
 
 }

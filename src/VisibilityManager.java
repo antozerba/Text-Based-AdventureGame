@@ -20,7 +20,6 @@ public class VisibilityManager implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_ENTER){
-            System.out.println("Ciao");
             command.receiveInput(gui.getTextField().getText());
         }
     }
