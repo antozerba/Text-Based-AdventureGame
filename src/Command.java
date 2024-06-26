@@ -1,6 +1,19 @@
 import org.apache.commons.configuration.ConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.swing.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+
 
 public class Command {
     RoomGUi gui;
@@ -169,9 +182,92 @@ public class Command {
         }
     }
     public boolean save() throws ConfigurationException {
-        saving = new Saving();
-        saving.save();
+        createFile();
+       // saving = new Saving();
+        //saving.save();
         return true;
+    }
+
+    public void createFile(){
+        try{
+            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+
+            //creo l'elemento principale
+            Element root = document.createElement("game");
+            document.appendChild(root);
+            //creo  l'elemento charatcher, figlio di "game"
+            Element mainCharacter = document.createElement("mainCharacter");
+            root.appendChild(mainCharacter);
+
+            //elemento name, filio di "main character"
+            Element nameCh = document.createElement("name");
+            mainCharacter.appendChild(nameCh);
+            nameCh.appendChild(document.createTextNode(logic.getMainCharacter().getName()));
+
+            //elemento backpack, figlio di character, che a sua volta ha i figli item
+            Element backpack = document.createElement("backpack");
+            mainCharacter.appendChild(backpack);
+            for(int i = 0; i < logic.getMainCharacter().getBackpack().size(); i++){
+                Element item = document.createElement("item");
+                backpack.appendChild(item);
+                item.setAttribute("id", String.valueOf(i));
+                item.appendChild(document.createTextNode(logic.getMainCharacter().getBackpack().get(i).toString()));
+            }
+
+            Element rooms = document.createElement("rooms");
+            root.appendChild(rooms);
+
+            for(int i = 0; i < logic.getGameRoom().length; i++){
+                System.out.println("Entro nel primo ciclo");
+                Element room = document.createElement("room");
+                rooms.appendChild(room);
+                room.setAttribute("id", String.valueOf(i));
+                Element thereIsChar = document.createElement("thereIsCharacter");
+                room.appendChild(thereIsChar);
+                if(logic.getRoomByIndex(i).getThereIsCharacter()){
+                    thereIsChar.appendChild(document.createTextNode("true"));
+                }else{
+                    thereIsChar.appendChild(document.createTextNode("false"));
+                }
+
+                Element needItem = document.createElement("needItem");
+                room.appendChild(needItem);
+                if(logic.getRoomByIndex(i).getNeededItems().size() != 0){
+                    for (int j = 0; j < logic.getRoomByIndex(i).getNeededItems().size(); j++) {
+                        Element need = document.createElement("need");
+                        needItem.appendChild(need);
+                        need.setAttribute("id", String.valueOf(j));
+                        need.appendChild(document.createTextNode(logic.getRoomByIndex(i).getNeededItems().get(j).toString()));
+                    }
+                }
+
+                Element object = document.createElement("object");
+                room.appendChild(object);
+                if(logic.getRoomByIndex(i).getObject().size() != 0){
+                    for(int k = 0; k < logic.getRoomByIndex(i).getObject().size(); k++){
+                        Element objItem = document.createElement("objItem");
+                        object.appendChild(objItem);
+                        objItem.setAttribute("id", String.valueOf(k));
+                        object.appendChild(document.createTextNode(logic.getRoomByIndex(i).getObject().get(k).toString()));
+                    }
+                }
+
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            DOMSource domSource = new DOMSource(document);
+            StreamResult streamResult = new StreamResult(new File("game.xml"));
+            transformer.transform(domSource, streamResult);
+            System.out.println("file salvato");
+
+        }catch (ParserConfigurationException | TransformerException e){
+            e.printStackTrace();
+        }
     }
 
 }
