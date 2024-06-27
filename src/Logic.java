@@ -267,7 +267,7 @@ public class Logic {
                         this.previusRoom = this.actRoom;
                         //this.previusRoom.setThereIsCharacter(false);
                         this.actRoom = futureRoom;
-                        System.out.print(findDescription());
+                        //System.out.print(findDescription());
                         showItem();
                         //this.actRoom.setThereIsCharacter(true);
                     }else{
@@ -282,7 +282,7 @@ public class Logic {
         //passo tutti gli elementi che il mainCharacter contiene nello zaino
         for(int i = 0; i < this.mainCharacter.getBackpack().size(); i++){
             //confronto gli item con i needed item della stanza, se combaciano li rimuovo sia da una parte che dall'altra
-            if(nextRoom.getNeededItems().contains(this.mainCharacter.getBackpack().get(i)) /*&& !nextRoom.getNeededItems().equals(Item.Macete)*/) {
+            if(nextRoom.getNeededItems().contains(this.mainCharacter.getBackpack().get(i)) ) {
                 nextRoom.getNeededItems().remove(this.mainCharacter.getBackpack().get(i));
                 this.mainCharacter.getBackpack().remove(i);
             }
@@ -354,6 +354,7 @@ public class Logic {
             }else{
                 return actualRoom;
             }
+            //siamo nel tempio perduto
         }else if(actualRoom == this.gameRoom[4]){
             this.gameRoom[4].setThereIsCharacter(false);
             if(command.equals("nord")){
@@ -503,20 +504,6 @@ public class Logic {
         return s;
     }
 
-    /*private void takeFunction(int choice){
-        if(choice >= 0 && choice < this.actRoom.getObject().size()){
-            this.mainCharacter.addItem(this.actRoom.getObject().get(choice));
-            this.actRoom.getObject().remove(choice);
-            System.out.print("\nConitnua con il gioco: ");
-        }else{
-            System.out.print("\nVolore non valido! \nContinua con il gioco: ");
-        }
-    }*/
-
-    /*public void nowFunction(){
-        System.out.println("Ti trovi nella stanza: " + this.actRoom.getName());
-    }*/
-
     public void releaseFunction(int choice){
         if(choice >= 0 && choice < this.mainCharacter.getBackpack().size()){
             this.actRoom.addItem(this.mainCharacter.getBackpack().get(choice));
@@ -546,23 +533,6 @@ public class Logic {
         return this.gameRoom[index];
     }
 
-    /*public void dataByFile(String fileName){
-        try {
-            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-            Document document = (Document) documentBuilder.parse(new File(fileName));
-            document.getDocumentElement().normalize();
-            NodeList mainCharacter = document.getElementsByTagName("mainCharacter");
-
-
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
     public void data(){
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
@@ -587,14 +557,7 @@ public class Logic {
 
         // Ottieni l'elemento radice
         Element root = ((org.w3c.dom.Document) doc).getDocumentElement();
-        System.out.println("Root element: " + root.getTagName());
 
-
-       /* NodeList rootChild = root.getChildNodes();
-        NodeList mainCh = rootChild.item(0).getChildNodes();
-        for(int i = 0; i < mainCh.getLength(); i++){
-            System.out.println(mainCh.item(i).toString());
-        }*/
 
 
         //Processa l'elemento mainCharacter
@@ -622,7 +585,6 @@ public class Logic {
                 String roomId = roomElement.getAttribute("id");
                 String thereIsCharacter = roomElement.getElementsByTagName("thereIsCharacter").item(0).getTextContent();
                 this.getRoomByIndex(i).setThereIsCharacter(Boolean.valueOf(thereIsCharacter));
-                System.out.println("Room ID: " + roomId + ", There is Character: " + thereIsCharacter);
 
                 NodeList needs = roomElement.getElementsByTagName("need");
                 ArrayList<Item> needItem = new ArrayList<Item>();
@@ -632,9 +594,6 @@ public class Logic {
                 }
 
                 this.getRoomByIndex(i).setNeededItems(needItem);
-                for(int j=0; j<this.getRoomByIndex(i).getNeededItems().size(); j++){
-                    System.out.println("Sono i nostri needed item: " + this.getRoomByIndex(i).getNeededItems().get(j).toString());
-                }
 
                 NodeList objects = roomElement.getElementsByTagName("object");
                 ArrayList<Item> objectItem = new ArrayList<Item>();
@@ -645,14 +604,10 @@ public class Logic {
                             object.getElementsByTagName("objItem").item(0).getTextContent() : "";
                     String objText = object.getTextContent().trim();
                     if (!objItemId.isEmpty() || !objText.isEmpty()) {
-                        System.out.println("  Object Item ID: " + objItemId + ", Object Text: " + objText);
                         objectItem.add(Item.valueOf(objText.replace(" ", "")));
                     }
                 }
                 this.getRoomByIndex(i).setObject(objectItem);
-                for(int j=0; j<this.getRoomByIndex(i).getObject().size(); j++){
-                    System.out.println("Sono i nostri oggetti : " + this.getRoomByIndex(i).getObject().get(j).toString());
-                }
             }
         }
     }

@@ -107,6 +107,12 @@ Room {
         this.grantedDirections = grantedDirections;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Room room = (Room) obj;
+        return this.name.equals(room.name);
+    }
+
     public boolean addItem(Item item){
         if(this.object.add(item)){
             return true;

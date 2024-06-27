@@ -20,7 +20,7 @@ public class Command {
     IconManager manager;
     Logic logic;
     Saving saving;
-    public int count =0;
+    public int count = 0;
 
     public Command(RoomGUi roomGUi, Logic logic) {
         gui = roomGUi;
@@ -34,48 +34,35 @@ public class Command {
     }
 
     //Method for receiving input form the JTEXTFIELD as a String
-    public void receiveInput(String inputCommand){
+    public void receiveInput(String inputCommand) {
         String[] splitInputCommand;
         inputCommand = inputCommand.toLowerCase();
         splitInputCommand = inputCommand.split(" ");
-        if(this.logic.getActRoom().getGrantedDirections().contains(splitInputCommand[0]) || this.logic.getRiddleAnswers().contains(splitInputCommand[0])) {
+        if (this.logic.getActRoom().getGrantedDirections().contains(splitInputCommand[0]) || this.logic.getRiddleAnswers().contains(splitInputCommand[0])) {
             Room futureRoom = this.logic.nextRoom(this.logic.getActRoom(), inputCommand);
-             /*if(futureRoom.equals(this.logic.getRoomByIndex(6))){
-                if(indovinelliTempio(inputCommand, futureRoom)){
-                    this.logic.setPreviusRoom(this.logic.getActRoom());
-                    this.logic.setActRoom(futureRoom);
-                    gui.getTextField().setText("");
-                    changeRoom();
-                }
-            }else*/ if(this.logic.canAccess(futureRoom)){
+            if (this.logic.canAccess(futureRoom)) {
                 this.logic.setPreviusRoom(this.logic.getActRoom());
                 this.logic.setActRoom(futureRoom);
                 gui.getTextField().setText("");
                 changeRoom();
+            } else {
+                gui.getTextArea().setText("Non hai tutti gli tem necessari! Muoviti nelle altre stanze per cercarli.");
+                gui.getTextField().setText("");
             }
-        }else if(count == 0){
+        } else if (count == 0) {
             count++;
             System.out.println(inputCommand);
             this.logic.setMainCharacter(inputCommand);
             System.out.println("Il nome del tuo personaggio è: " + this.logic.getMainCharacter().getName());
             firstRoom();
             gui.getTextField().setText("");
-        }else if(this.logic.getOtherCommands().contains(splitInputCommand[0])){
+        } else if (this.logic.getOtherCommands().contains(splitInputCommand[0])) {
             plusCommand(splitInputCommand);
             gui.getTextField().setText("");
-        }else {
+        } else {
             gui.getTextArea().setText("Comando non riconosciuto!");
             gui.getTextField().setText("");
         }
-        /*gameRun.nextRoom(gameRun.getActRoom(), inputCommand);
-
-        if(inputCommand.equals(">Simone")){
-            System.out.println(inputCommand);
-            this.gameRun.setMainCharacter(inputCommand);
-            System.out.println("Il nome del tuo personaggio è: " + this.gameRun.getMainCharacter().getName());
-
-            //changeRoom();
-        }*/
 
     }
 
@@ -91,10 +78,11 @@ public class Command {
         gui.getImagePanel().repaint();
     }
 
-    public void printBackPack(){
+    public void printBackPack() {
 
     }
-    public void changeRoom(){
+
+    public void changeRoom() {
         //Mi serve un metodo per ottonere la stanza giusta SIMONE dopo dimmi se ce l'hai già
         int actIndex = this.logic.getRoomIndex();
         //Metopo per modificare TextArea
@@ -111,41 +99,40 @@ public class Command {
 
     }
 
-    public void plusCommand(String[] command){
-        if(command[0].equals("help")){
+    public void plusCommand(String[] command) {
+        if (command[0].equals("help")) {
             helpFunction();
-        }else if(command[0].equals("take")){
+        } else if (command[0].equals("take")) {
             int choice = Integer.parseInt(command[1]);
             takeFunction(choice);
             return;
-        }else if(command[0].equals("release")){
+        } else if (command[0].equals("release")) {
             int choice = Integer.parseInt(command[1]);
             //releaseFunction(choice);
             return;
-        }else if(command[0].equals("now")){
+        } else if (command[0].equals("now")) {
             nowFunction();
-        }else if(command[0].equals("backpack")){
+        } else if (command[0].equals("backpack")) {
             backpackViewer();
-        }else if(command[0].equals("save")) {
+        } else if (command[0].equals("save")) {
             try {
                 save();
             } catch (Exception e) {
                 System.out.println(e);
             }
-        }else if(command[0].equals("download")) {
-                try{
-                    download();
-                }
-                catch (Exception e){
-                    System.out.println(e);
-                }
-        }else{
+        } else if (command[0].equals("download")) {
+            try {
+                download();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else {
             System.out.println("Commando non riconosciuto");
         }
     }
 
 
-    public void helpFunction(){
+    public void helpFunction() {
         String s = ("Questi sono tutti i comandi che puoi usare:\n" +
                 "1) Comandi direzionali [nord, sud, est, ovest] --> ti permettono di spostarti all'interno dellla mappa\n" +
                 "2) Comando [back] --> ti permette di tornare alla stanza precedente\n" +
@@ -156,42 +143,42 @@ public class Command {
         gui.getTextArea().setText(s);
     }
 
-    public void backpackViewer(){
+    public void backpackViewer() {
         String s = ("Nel tuo zaino hai: \n");
-        for(int i = 0; i < this.logic.getMainCharacter().getBackpack().size(); i++){
+        for (int i = 0; i < this.logic.getMainCharacter().getBackpack().size(); i++) {
             s += (i + ")" + this.logic.getMainCharacter().getBackpack().get(i) + "\n");
         }
         gui.getTextArea().setText(s);
     }
 
-    private void takeFunction(int choice){
-        if(choice >= 0 && choice < this.logic.getActRoom().getObject().size()){
+    private void takeFunction(int choice) {
+        if (choice >= 0 && choice < this.logic.getActRoom().getObject().size()) {
             this.logic.getMainCharacter().addItem(this.logic.getActRoom().getObject().get(choice));
             gui.getTextArea().setText("Hai raccolto: " + this.logic.getActRoom().getObject().get(choice));
             this.logic.getActRoom().getObject().remove(choice);
 
-        }else{
+        } else {
             System.out.println("coglione");
         }
 
     }
 
-    public void nowFunction(){
+    public void nowFunction() {
         gui.getTextArea().setText("Ti trovi: " + this.logic.getActRoom().getName());
         gui.getTextField().setText("");
     }
 
-    public boolean indovinelliTempio(String risposta, Room futureRoom){
-        gui.getTextField().setText("");
-        gui.getTextArea().setText("Per poter accedere al Tempio Perduto devi risolvere l'indovinello!\n La mia vita può durare qualche ora, quello che produco mi divora. Sottile sono veloce, grossa sono lenta e il vento molto mi spaventa. Chi sono?");
-        risposta = risposta.toLowerCase();
-        if((risposta.equals("candela") || risposta.equals("la candela")) && this.logic.canAccess(futureRoom)){
+    public boolean indovinelliTempio(String risposta, Room futureRoom) {
+            gui.getTextField().setText("");
+            gui.getTextArea().setText("Per poter accedere al Tempio Perduto devi risolvere l'indovinello!\n La mia vita può durare qualche ora, quello che produco mi divora. Sottile sono veloce, grossa sono lenta e il vento molto mi spaventa. Chi sono?");
+            risposta = risposta.toLowerCase();
+            while(!risposta.equals("candela") && !risposta.equals("la candela")){
+
+            }
             gui.getTextArea().setText("Complimenti hai indovinato, puoi proseguire con la tua avventura!");
             gui.getTextField().setText("");
             return true;
-        }else{
-            return false;
-        }
+
     }
     public boolean save() throws ConfigurationException {
         createFile();

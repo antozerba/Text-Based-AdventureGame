@@ -33,9 +33,7 @@ public class Saving {
             .region(region)
             .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
             .build();
-    public Saving() throws ConfigurationException {
-
-    }
+    public Saving() throws ConfigurationException {}
     public void upload() throws ConfigurationException {
         // Create a put object request
         PutObjectRequest request = PutObjectRequest.builder()
@@ -47,6 +45,7 @@ public class Saving {
         client.putObject(request, RequestBody.fromFile(new File(filePath)));
 
         System.out.println("File uploaded successfully.");
+        System.exit(0);
     }
     public void download(){
         String downloadFilePath = "src/download.xml";
