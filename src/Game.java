@@ -66,10 +66,12 @@ public class Game {
             logic = new Logic();
             logic.createRoom();
             logic.setRoom();
-            //gameRun.setRoom();
+            
             manager = new VisibilityManager(gui, logic);
             gui.setManager(manager);
             manager.getCommand().saving.download();
+            logic.data();
+            manager.getCommand().changeRoom();
             startGui.setVisible(false);
         }
     }

@@ -1,4 +1,13 @@
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -215,7 +224,7 @@ public class Logic {
 
 
         //nona stanza, Stanza dell Reliquie Celesti
-        this.gameRoom[8].setObject(new ArrayList<Item>(){{add(Item.CaliceDelSangueSanto);}});
+        this.gameRoom[8].setObject(new ArrayList<Item>(){{add(Item.CaliceDelSangueAntico);}});
         this.gameRoom[8].setGrantedDirections(directions.getNESB());
 
         //decima stanza, Covo delle Anime Perdute
@@ -235,7 +244,7 @@ public class Logic {
         this.gameRoom[12].setGrantedDirections(directions.getESB());
 
         //quattordicesima stanza, Stanza del Tesoro
-        this.gameRoom[13].setNeededItems(new ArrayList<Item>(){{add(Item.ChiaveDelTesoroAntico); add(Item.CaliceDelSangueSanto); }});
+        this.gameRoom[13].setNeededItems(new ArrayList<Item>(){{add(Item.ChiaveDelTesoroAntico); add(Item.CaliceDelSangueAntico); }});
         this.gameRoom[13].setObject(new ArrayList<Item>(){{add(Item.TesoroAntico);}});
         this.gameRoom[13].setGrantedDirections(directions.getNOB());
     }
@@ -486,45 +495,6 @@ public class Logic {
         }
     }
 
-    /*public void plusCommand(String[] command){
-        if(command[0].equals("help")){
-            helpFunction();
-        }else if(command[0].equals("take")){
-            int choice = Integer.parseInt(command[1]);
-            takeFunction(choice);
-            return;
-        }else if(command[0].equals("release")){
-            int choice = Integer.parseInt(command[1]);
-            releaseFunction(choice);
-            return;
-        }else if(command[0].equals("now")){
-            nowFunction();
-        }else if(command[0].equals("backpack")){
-            backpackViewer();
-        }else{
-            System.out.println("Commando non riconosciuto");
-        }
-    }*/
-
-    /*public void helpFunction(){
-        System.out.print("Questi sono tutti i comandi che puoi usare:\n" +
-                "1) Comandi direzionali [nord, sud, est, ovest] --> ti permettono di spostarti all'interno dellla mappa\n" +
-                "2) Comando [back] --> ti permette di tornare alla stanza precedente\n" +
-                "3) Comando [take <item>] --> ti permette di mettere nel tuo zaino un item che trovi nelle varie stanze\n" +
-                "4) Comando [release <item>] --> ti permette di togliere dallo zaino un item\n" +
-                "5) Comando [backpack] --> ti permette di visualizzare quello che c'è nello zaino\n" +
-                "6) Comando [now] --> indica la stanza in cui attualemnte ci troviamo\n" +
-                "Continua con il gioco: ");
-    }*/
-
-    /*public void backpackViewer(){
-        System.out.print("Nel tuo zaino hai: \n");
-        for(int i = 0; i < this.mainCharacter.getBackpack().size(); i++){
-            System.out.println(i + ")" + this.mainCharacter.getBackpack().get(i));
-        }
-        System.out.print("\nContinua con io gioco: ");
-    }*/
-
     public String showItem(){
         String s = ("\nGli Item presenti in questa stanza sono: \n");
         for(int i = 0; i < this.actRoom.getObject().size(); i++){
@@ -592,7 +562,7 @@ public class Logic {
         } catch (SAXException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
     public void data(){
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
@@ -619,46 +589,71 @@ public class Logic {
         Element root = ((org.w3c.dom.Document) doc).getDocumentElement();
         System.out.println("Root element: " + root.getTagName());
 
+
+       /* NodeList rootChild = root.getChildNodes();
+        NodeList mainCh = rootChild.item(0).getChildNodes();
+        for(int i = 0; i < mainCh.getLength(); i++){
+            System.out.println(mainCh.item(i).toString());
+        }*/
+
+
         //Processa l'elemento mainCharacter
         Node mainCharacter = doc.getElementsByTagName("mainCharacter").item(0);
         if (mainCharacter.getNodeType() == Node.ELEMENT_NODE) {
             Element mainCharacterElement = (Element) mainCharacter;
             String name = mainCharacterElement.getElementsByTagName("name").item(0).getTextContent();
-            System.out.println("Main Character Name: " + name);
+            this.mainCharacter.setName(name);
 
             NodeList backpackItems = mainCharacterElement.getElementsByTagName("item");
+            ArrayList<Item> backpack = new ArrayList<Item>();
             for (int i = 0; i < backpackItems.getLength(); i++) {
                 Element item = (Element) backpackItems.item(i);
-                System.out.println("Item " + item.getAttribute("id") + ": " + item.getTextContent());
+                backpack.add(Item.valueOf(item.getTextContent()));
             }
+            this.mainCharacter.setBackpack(backpack);
         }
 
         // Processa gli elementi rooms
-        NodeList rooms = doc.getElementsByTagName("room");
+       NodeList rooms = doc.getElementsByTagName("room");
         for (int i = 0; i < rooms.getLength(); i++) {
             Node room = rooms.item(i);
             if (room.getNodeType() == Node.ELEMENT_NODE) {
                 Element roomElement = (Element) room;
                 String roomId = roomElement.getAttribute("id");
                 String thereIsCharacter = roomElement.getElementsByTagName("thereIsCharacter").item(0).getTextContent();
+                this.getRoomByIndex(i).setThereIsCharacter(Boolean.valueOf(thereIsCharacter));
                 System.out.println("Room ID: " + roomId + ", There is Character: " + thereIsCharacter);
 
                 NodeList needs = roomElement.getElementsByTagName("need");
+                ArrayList<Item> needItem = new ArrayList<Item>();
                 for (int j = 0; j < needs.getLength(); j++) {
                     Element need = (Element) needs.item(j);
-                    System.out.println("  Need " + need.getAttribute("id") + ": " + need.getTextContent());
+                    needItem.add(Item.valueOf(need.getTextContent().replace(" ", "")));
+                }
+
+                this.getRoomByIndex(i).setNeededItems(needItem);
+                for(int j=0; j<this.getRoomByIndex(i).getNeededItems().size(); j++){
+                    System.out.println("Sono i nostri needed item: " + this.getRoomByIndex(i).getNeededItems().get(j).toString());
                 }
 
                 NodeList objects = roomElement.getElementsByTagName("object");
+                ArrayList<Item> objectItem = new ArrayList<Item>();
                 for (int k = 0; k < objects.getLength(); k++) {
                     Element object = (Element) objects.item(k);
+
                     String objItemId = object.getElementsByTagName("objItem").getLength() > 0 ?
-                            object.getElementsByTagName("objItem").item(0) : "";
+                            object.getElementsByTagName("objItem").item(0).getTextContent() : "";
                     String objText = object.getTextContent().trim();
                     if (!objItemId.isEmpty() || !objText.isEmpty()) {
                         System.out.println("  Object Item ID: " + objItemId + ", Object Text: " + objText);
+                        objectItem.add(Item.valueOf(objText.replace(" ", "")));
                     }
                 }
+                this.getRoomByIndex(i).setObject(objectItem);
+                for(int j=0; j<this.getRoomByIndex(i).getObject().size(); j++){
+                    System.out.println("Sono i nostri oggetti : " + this.getRoomByIndex(i).getObject().get(j).toString());
+                }
             }
-    }*/
+        }
+    }
 }

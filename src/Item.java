@@ -4,7 +4,7 @@ public enum Item {
     ChiaveDellAvventuriero,
     ChiaveDellaSerpeSmeraldo,
     PergamenaDelleProfezieAntiche,
-    CaliceDelSangueSanto,
+    CaliceDelSangueAntico,
     LanternaDellEternaPenombra,
     ChiaveDelTesoroAntico,
     TesoroAntico;
@@ -17,17 +17,17 @@ public enum Item {
             }case Macete -> {
                 return "Macete";
             }case ChiaveDellAvventuriero -> {
-                return "Chiave dell'Avventuriero";
+                return "Chiave Dell Avventuriero";
             }case ChiaveDellaSerpeSmeraldo -> {
-                return "Chiave della Serpe Smeraldo";
+                return "Chiave Della Serpe Smeraldo";
             }case PergamenaDelleProfezieAntiche -> {
-                return "Pergamena delle Profezie Antiche";
-            }case CaliceDelSangueSanto -> {
-                return "Calice del Sangue Antico";
+                return "Pergamena Delle Profezie Antiche";
+            }case CaliceDelSangueAntico -> {
+                return "Calice Del Sangue Antico";
             }case LanternaDellEternaPenombra -> {
-                return "Lanterna dell'Eterna Penombra";
+                return "Lanterna Dell Eterna Penombra";
             }case ChiaveDelTesoroAntico -> {
-                return "Chiave del Tesoro Antico";
+                return "Chiave Del Tesoro Antico";
             }case TesoroAntico -> {
                 return "Tesoro Antico";
             }default -> {

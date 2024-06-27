@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
-public class Room {
+public class
+Room {
     //attributi di Room
     private String name;    //nome della stanza
     private Enemy enemy;    //nemico che possiamo trovare nella stanza
