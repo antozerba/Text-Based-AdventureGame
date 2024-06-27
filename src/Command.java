@@ -26,6 +26,11 @@ public class Command {
         gui = roomGUi;
         this.logic = logic;
         manager = new IconManager();
+        try {
+            saving = new Saving();
+        } catch (ConfigurationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //Method for receiving input form the JTEXTFIELD as a String
@@ -122,16 +127,23 @@ public class Command {
         }else if(command[0].equals("backpack")){
             backpackViewer();
         }else if(command[0].equals("save")) {
-            try{
+            try {
                 save();
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
+        }else if(command[0].equals("download")) {
+                try{
+                    download();
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
         }else{
             System.out.println("Commando non riconosciuto");
         }
     }
+
 
     public void helpFunction(){
         String s = ("Questi sono tutti i comandi che puoi usare:\n" +
@@ -183,9 +195,11 @@ public class Command {
     }
     public boolean save() throws ConfigurationException {
         createFile();
-       // saving = new Saving();
-        //saving.save();
+        saving.upload();
         return true;
+    }
+    private void download() throws ConfigurationException {
+        saving.download();
     }
 
     public void createFile(){
@@ -220,7 +234,6 @@ public class Command {
             root.appendChild(rooms);
 
             for(int i = 0; i < logic.getGameRoom().length; i++){
-                System.out.println("Entro nel primo ciclo");
                 Element room = document.createElement("room");
                 rooms.appendChild(room);
                 room.setAttribute("id", String.valueOf(i));
@@ -261,7 +274,7 @@ public class Command {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
             DOMSource domSource = new DOMSource(document);
-            StreamResult streamResult = new StreamResult(new File("game.xml"));
+            StreamResult streamResult = new StreamResult(new File("src/upload.xml"));
             transformer.transform(domSource, streamResult);
             System.out.println("file salvato");
 

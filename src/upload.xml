@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game>
+    <mainCharacter>
+        <name>cacca</name>
+        <backpack>
+            <item id="0">Torcia</item>
+            <item id="1">Macete</item>
+        </backpack>
+    </mainCharacter>
+    <rooms>
+        <room id="0">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem/>
+            <object/>
+        </room>
+        <room id="1">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem/>
+            <object>
+                <objItem id="0"/>
+                Chiave dell'Avventuriero
+            </object>
+        </room>
+        <room id="2">
+            <thereIsCharacter>true</thereIsCharacter>
+            <needItem/>
+            <object/>
+        </room>
+        <room id="3">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem>
+                <need id="0">Macete</need>
+            </needItem>
+            <object>
+                <objItem id="0"/>
+                Chiave della Serpe Smeraldo
+            </object>
+        </room>
+        <room id="4">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem/>
+            <object/>
+        </room>
+        <room id="5">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem/>
+            <object/>
+        </room>
+        <room id="6">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem>
+                <need id="0">Chiave dell'Avventuriero</need>
+                <need id="1">Chiave della Serpe Smeraldo</need>
+            </needItem>
+            <object/>
+        </room>
+        <room id="7">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem/>
+            <object>
+                <objItem id="0"/>
+                Pergamena delle Profezie Antiche
+            </object>
+        </room>
+        <room id="8">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem/>
+            <object>
+                <objItem id="0"/>
+                Calice del Sangue Antico
+            </object>
+        </room>
+        <room id="9">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem/>
+            <object>
+                <objItem id="0"/>
+                Lanterna dell'Eterna Penombra
+            </object>
+        </room>
+        <room id="10">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem>
+                <need id="0">Pergamena delle Profezie Antiche</need>
+            </needItem>
+            <object>
+                <objItem id="0"/>
+                Chiave del Tesoro Antico
+            </object>
+        </room>
+        <room id="11">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem>
+                <need id="0">Lanterna dell'Eterna Penombra</need>
+            </needItem>
+            <object/>
+        </room>
+        <room id="12">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem/>
+            <object/>
+        </room>
+        <room id="13">
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem>
+                <need id="0">Chiave del Tesoro Antico</need>
+                <need id="1">Calice del Sangue Antico</need>
+            </needItem>
+            <object>
+                <objItem id="0"/>
+                Tesoro Antico
+            </object>
+        </room>
+    </rooms>
+</game>

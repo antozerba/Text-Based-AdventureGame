@@ -13,7 +13,7 @@ public class Logic {
     private Room previusRoom;
     private Room[] gameRoom;
     private Directions directions;
-    private final ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("take", "release", "help", "backpack", "now", "save"));
+    private final ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("take", "release", "help", "backpack", "now", "save", "download"));
 
     private final ArrayList<String> riddleAnswers = new ArrayList<String>(Arrays.asList("candela", "la candela"));
 
@@ -80,53 +80,12 @@ public class Logic {
         this.previusRoom = null;
         this.scan = new Scanner(System.in);
         this.directions = new Directions();
-        startNewGame();
     }
 
     public ArrayList<String> getRiddleAnswers() {
         return riddleAnswers;
     }
 
-    private void choiceStart(int choice){
-        switch(choice){
-            case 1:
-                startNewGame();
-                break;
-            case 2:
-                //loadGame();
-                break;
-            case 3:
-                // exitGame();
-        }
-    }
-
-    private void startNewGame(){
-        /*try{
-            String fileName;
-            do{
-                System.out.print("Inserisci un nome per salvare questa partita [senza spazi]: ");
-                fileName = scan.nextLine();
-            }while(fileName.contains(" "));
-
-            String pathName = pathName();
-            File gameReport = new File(pathName + fileName + ".xml");
-            if (gameReport.createNewFile()) {
-                System.out.println("File XML creato con successo.");
-            } else {
-                System.out.println("Il file XML esiste già.");
-            }
-        }catch (Exception e){
-            System.err.println("Errore durante la creazione del file di salvataggio del gioco: " + e.getMessage());
-        }
-        String name;
-        System.out.print("Ehi! Sei pronto ad iniziare una nuova partita di Death-Jungle!?\n" +
-                "Inziamo col scegliere il nome del tuo eroe: ");
-        name = scan.nextLine();
-        this.mainCharacter = new Character(name);
-        System.out.println("Ciao, sono " + this.mainCharacter.getName() + " e sono l'eroe della tua avventura!");
-        System.out.println("Ricordati che nelle varie stanze del gioco puoi trovare degli oggetti che ti possono servire per accedere alle stanze successive, quindi fai sempre attenzione a cercarli bene!");
-        createRoom();*/
-    }
 
     private String pathName(){
         String pathName;
@@ -153,10 +112,6 @@ public class Logic {
         gameRoom[0].setThereIsCharacter(true);
         this.actRoom = gameRoom[0];
         System.out.println(findDescription());
-        //setRoom();
-        //showItem();
-        //gameLoop();
-        //System.out.print(findDescription(mainCharacter));
 
     }
 
@@ -621,4 +576,89 @@ public class Logic {
         return this.gameRoom[index];
     }
 
+    /*public void dataByFile(String fileName){
+        try {
+            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+            Document document = (Document) documentBuilder.parse(new File(fileName));
+            document.getDocumentElement().normalize();
+            NodeList mainCharacter = document.getElementsByTagName("mainCharacter");
+
+
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SAXException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void data(){
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        // Carica il documento XML
+        org.w3c.dom.Document doc = null;
+        try {
+            doc = builder.parse("src/download.xml");
+        } catch (SAXException ex) {
+            throw new RuntimeException(ex);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        // Normalizza il documento XML
+        ((org.w3c.dom.Document) doc).getDocumentElement().normalize();
+
+        // Ottieni l'elemento radice
+        Element root = ((org.w3c.dom.Document) doc).getDocumentElement();
+        System.out.println("Root element: " + root.getTagName());
+
+        //Processa l'elemento mainCharacter
+        Node mainCharacter = doc.getElementsByTagName("mainCharacter").item(0);
+        if (mainCharacter.getNodeType() == Node.ELEMENT_NODE) {
+            Element mainCharacterElement = (Element) mainCharacter;
+            String name = mainCharacterElement.getElementsByTagName("name").item(0).getTextContent();
+            System.out.println("Main Character Name: " + name);
+
+            NodeList backpackItems = mainCharacterElement.getElementsByTagName("item");
+            for (int i = 0; i < backpackItems.getLength(); i++) {
+                Element item = (Element) backpackItems.item(i);
+                System.out.println("Item " + item.getAttribute("id") + ": " + item.getTextContent());
+            }
+        }
+
+        // Processa gli elementi rooms
+        NodeList rooms = doc.getElementsByTagName("room");
+        for (int i = 0; i < rooms.getLength(); i++) {
+            Node room = rooms.item(i);
+            if (room.getNodeType() == Node.ELEMENT_NODE) {
+                Element roomElement = (Element) room;
+                String roomId = roomElement.getAttribute("id");
+                String thereIsCharacter = roomElement.getElementsByTagName("thereIsCharacter").item(0).getTextContent();
+                System.out.println("Room ID: " + roomId + ", There is Character: " + thereIsCharacter);
+
+                NodeList needs = roomElement.getElementsByTagName("need");
+                for (int j = 0; j < needs.getLength(); j++) {
+                    Element need = (Element) needs.item(j);
+                    System.out.println("  Need " + need.getAttribute("id") + ": " + need.getTextContent());
+                }
+
+                NodeList objects = roomElement.getElementsByTagName("object");
+                for (int k = 0; k < objects.getLength(); k++) {
+                    Element object = (Element) objects.item(k);
+                    String objItemId = object.getElementsByTagName("objItem").getLength() > 0 ?
+                            object.getElementsByTagName("objItem").item(0) : "";
+                    String objText = object.getTextContent().trim();
+                    if (!objItemId.isEmpty() || !objText.isEmpty()) {
+                        System.out.println("  Object Item ID: " + objItemId + ", Object Text: " + objText);
+                    }
+                }
+            }
+    }*/
 }

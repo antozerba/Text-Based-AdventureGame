@@ -28,4 +28,8 @@ public class VisibilityManager implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
     }
+
+    public Command getCommand() {
+        return command;
+    }
 }
