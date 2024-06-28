@@ -4,6 +4,8 @@
         <name>antonio</name>
         <backpack>
             <item id="0">Torcia</item>
+            <item id="1">Macete</item>
+            <item id="2">Chiave Dell Avventuriero</item>
         </backpack>
     </mainCharacter>
     <rooms>
@@ -13,7 +15,7 @@
             <object/>
         </room>
         <room id="1">
-            <thereIsCharacter>false</thereIsCharacter>
+            <thereIsCharacter>true</thereIsCharacter>
             <needItem/>
             <object/>
         </room>
@@ -24,8 +26,13 @@
         </room>
         <room id="3">
             <thereIsCharacter>false</thereIsCharacter>
-            <needItem/>
-            <object/>
+            <needItem>
+                <need id="0">Macete</need>
+            </needItem>
+            <object>
+                <objItem id="0"/>
+                Chiave Della Serpe Smeraldo
+            </object>
         </room>
         <room id="4">
             <thereIsCharacter>false</thereIsCharacter>
@@ -38,8 +45,11 @@
             <object/>
         </room>
         <room id="6">
-            <thereIsCharacter>true</thereIsCharacter>
-            <needItem/>
+            <thereIsCharacter>false</thereIsCharacter>
+            <needItem>
+                <need id="0">Chiave Dell Avventuriero</need>
+                <need id="1">Chiave Della Serpe Smeraldo</need>
+            </needItem>
             <object/>
         </room>
         <room id="7">

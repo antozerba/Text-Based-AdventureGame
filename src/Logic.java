@@ -529,7 +529,7 @@ public class Logic {
             ArrayList<Item> backpack = new ArrayList<Item>();
             for (int i = 0; i < backpackItems.getLength(); i++) {
                 Element item = (Element) backpackItems.item(i);
-                backpack.add(Item.valueOf(item.getTextContent()));
+                backpack.add(Item.valueOf(item.getTextContent().replace(" ", "")));
             }
             this.mainCharacter.setBackpack(backpack);
         }
