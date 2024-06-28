@@ -202,7 +202,7 @@ public class Logic {
         this.gameRoom[12].setGrantedDirections(directions.getESB());
 
         //quattordicesima stanza, Stanza del Tesoro
-        this.gameRoom[13].setNeededItems(new ArrayList<Item>(){{add(Item.ChiaveDelTesoroAntico); add(Item.CaliceDelSangueAntico); }});
+        this.gameRoom[13].setNeededItems(new ArrayList<Item>(){{add(Item.ChiaveDelTesoroAntico); /*add(Item.CaliceDelSangueAntico);*/ }});
         this.gameRoom[13].setObject(new ArrayList<Item>(){{add(Item.TesoroAntico);}});
         this.gameRoom[13].setGrantedDirections(directions.getNOB());
     }
