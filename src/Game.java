@@ -51,6 +51,8 @@ public class Game {
             logic = new Logic();
             logic.createRoom();
             logic.setRoom();
+            logic.getRoomByIndex(0).setThereIsCharacter(true);
+            logic.setActRoom(logic.getRoomByIndex(0));
             manager = new VisibilityManager(gui, logic);
             gui.setManager(manager);
             manager.getCommand().setCount(0);
@@ -66,7 +68,6 @@ public class Game {
             logic = new Logic();
             logic.createRoom();
             logic.setRoom();
-            
             manager = new VisibilityManager(gui, logic);
             gui.setManager(manager);
             manager.getCommand().saving.download();

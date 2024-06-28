@@ -94,7 +94,6 @@ public class Command {
 
         //Creating the image and adding to the panel for replacing the old one
         ImageIcon icon = new ImageIcon(manager.iconArray[actIndex].image);
-        System.out.println(manager.iconArray[0].image);
         JLabel iconLabel = new JLabel(icon);
         gui.getImagePanel().removeAll();
         gui.getImagePanel().add(iconLabel);

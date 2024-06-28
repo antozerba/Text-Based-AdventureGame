@@ -101,8 +101,8 @@ public class Logic {
             gameRoom[i] = new Room(roomName[i]);
             //System.out.println(gameRoom[i].getName());
         }
-        gameRoom[0].setThereIsCharacter(true);
-        this.actRoom = gameRoom[0];
+        /*gameRoom[0].setThereIsCharacter(true);
+        this.actRoom = gameRoom[0];*/
         System.out.println(findDescription());
 
     }
@@ -118,8 +118,8 @@ public class Logic {
     //metodo che contiene tutte le descrizioni delle varie stanze e che grazie in base all'indice passato ritorna la giusta descrizione
     public String findDescription(){
         String[] descriptionRoom = {(" ti trovi disperso nel bel mezzo della giungla, il tuo scopo è quello di trovare il tempio e impossesarti del tesoro perduto."),
-                ("Ti sei addentrato nella zona della giungla più oscura di tutte e sei finito in un vicolo cieco, ma  mai dire mai che magari qualcosa di utile lo puoi trovare... \n"),
-                ("La tua avventura prosegue, ora ti trovi ancora nel bel mezzo della giungla, sei circondato da una folta vegetazione e da altissimi alberi. Prosegui con la tua avventura...\n"),
+                ("Ti sei addentrato nella zona della giungla più oscura, la foresta pluviale, di tutte e sei finito in un vicolo cieco, ma  mai dire mai che magari qualcosa di utile lo puoi trovare... \n"),
+                ("La tua avventura prosegue, ora ti trovi ancora nel bel mezzo della boscaglia, sei circondato da una folta vegetazione e da altissimi alberi. Prosegui con la tua avventura...\n"),
                 ("Caspita, " + this.mainCharacter.getName() + " sei finito in una delle zone più pericolose della giungla, il sentiero dei Serpenti.\n" +
                         "L'unico modo per escirne vivo è quello di uccidere tutti i serpenti, spero tu abbia tutto il necessario per riuscirci."),
                 ("Complimenti " + this.mainCharacter.getName() + " sei riuscito a trovare la strada per il Tempio Perduto. Ora però non è così facile entrarci, per fare ciò dovrai risolvere un indovinello per sbloccare \n" +
@@ -543,6 +543,8 @@ public class Logic {
                 String roomId = roomElement.getAttribute("id");
                 String thereIsCharacter = roomElement.getElementsByTagName("thereIsCharacter").item(0).getTextContent();
                 this.getRoomByIndex(i).setThereIsCharacter(Boolean.valueOf(thereIsCharacter));
+                if(getRoomByIndex(i).getThereIsCharacter())
+                    setActRoom(getRoomByIndex(i));
 
                 NodeList needs = roomElement.getElementsByTagName("need");
                 ArrayList<Item> needItem = new ArrayList<Item>();

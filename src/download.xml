@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <game>
     <mainCharacter>
-        <name>antonio</name>
+        <name>dfvnjska</name>
         <backpack>
             <item id="0">Torcia</item>
-            <item id="1">Macete</item>
-            <item id="2">Chiave Dell Avventuriero</item>
+            <item id="1">Chiave Dell Avventuriero</item>
         </backpack>
     </mainCharacter>
     <rooms>
@@ -22,7 +21,10 @@
         <room id="2">
             <thereIsCharacter>false</thereIsCharacter>
             <needItem/>
-            <object/>
+            <object>
+                <objItem id="0"/>
+                Macete
+            </object>
         </room>
         <room id="3">
             <thereIsCharacter>false</thereIsCharacter>
