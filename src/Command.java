@@ -20,7 +20,7 @@ public class Command {
     IconManager manager;
     Logic logic;
     Saving saving;
-    public int count = 0;
+    public int count;
 
     public Command(RoomGUi roomGUi, Logic logic) {
         gui = roomGUi;
@@ -31,6 +31,10 @@ public class Command {
         } catch (ConfigurationException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setCount(int x){
+        this.count = x;
     }
 
     //Method for receiving input form the JTEXTFIELD as a String

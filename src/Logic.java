@@ -6,7 +6,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,22 +94,6 @@ public class Logic {
         return riddleAnswers;
     }
 
-
-    private String pathName(){
-        String pathName;
-        String os = System.getProperty("os.name");
-        //System.out.println(os);
-        File testFile = new File("Specifiche.txt");
-        String path = testFile.getAbsolutePath();
-        String partialPath = path.replace("Specifiche.txt", "");
-
-        if(os.contains("Linux")){
-            return pathName = partialPath + "/rescues/";
-        }else{
-            return pathName = partialPath + "\\rescues\\";
-        }
-    }
-
     public void createRoom(){
         this.gameRoom = new Room[14];
         String[] roomName = {"Giugla", "Stanza Pluviale", "Boscaglia", "Sentiero dei Serpenti", "Tempio Perduto", "Camera dei Riti Sacri", "Sala dell'Altare Antico", "Anticamera", "Stanza delle Reliquie Celesti", "Covo delle Anime Perdute", "Stanza degli Enigmi", "Antro dell'Oscurità", "Corridoio dei Destini Intrecciati", "Stanza del Tesoro"};
@@ -131,31 +114,6 @@ public class Logic {
             }
         }
     }
-
-    /*private void printMap(){
-        String[][] map = {
-                {"", this.gameRoom[1].getName(), "", this.gameRoom[5].getName(), this.gameRoom[8].getName(), this.gameRoom[11].getName()},
-                {this.gameRoom[0].getName(), this.gameRoom[2].getName(), this.gameRoom[4].getName(), this.gameRoom[6].getName(), this.gameRoom[9].getName(), this.gameRoom[12].getName()},
-                {"", this.gameRoom[3].getName(), "", this.gameRoom[7].getName(), this.gameRoom[10].getName(), this.gameRoom[13].getName()}
-        };
-
-        int[] columnWidths = {30, 30, 30, 30, 30, 30};
-        printHorizontalLine(columnWidths);
-        for(String[] row : map){
-            for(int i = 0; i < row.length; i++){
-                System.out.printf("| %-" + (columnWidths[i] - 2) + "s", row[i]);
-            }
-            System.out.println("|");
-            printHorizontalLine(columnWidths);
-        }
-    }
-
-    private void printHorizontalLine(int[] columnWidth){
-        for(int width : columnWidth){
-            System.out.print("+" + "-".repeat(width));
-        }
-        System.out.println("+");
-    }*/
 
     //metodo che contiene tutte le descrizioni delle varie stanze e che grazie in base all'indice passato ritorna la giusta descrizione
     public String findDescription(){
