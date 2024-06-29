@@ -10,7 +10,7 @@ public class Directions {
     private final ArrayList<String> OB = new ArrayList<String>(Arrays.asList("ovest", "back"));
     private final ArrayList<String> NSB = new ArrayList<String>(Arrays.asList("nord", "sud", "back"));
     private final ArrayList<String> NESB = new ArrayList<String>(Arrays.asList("nord", "sud", "est", "back"));
-    private final ArrayList<String> NEOB = new ArrayList<String>(Arrays.asList("nord", "est", "sud", "back"));
+    private final ArrayList<String> NEOB = new ArrayList<String>(Arrays.asList("nord", "est", "ovest", "back"));
     private final ArrayList<String> ESB = new ArrayList<String>(Arrays.asList("est", "sud", "back"));
     private final ArrayList<String> ESOB = new ArrayList<String>(Arrays.asList("est", "sud", "ovest", "back"));
     private final ArrayList<String> NEB = new ArrayList<String>(Arrays.asList("nord", "est", "back"));

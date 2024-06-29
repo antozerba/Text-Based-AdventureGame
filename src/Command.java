@@ -16,13 +16,14 @@ import java.io.File;
 
 
 public class Command {
-    RoomGUi gui;
+    RoomGUI gui;
     IconManager manager;
     Logic logic;
     Saving saving;
     public int count;
+    public boolean correct = true;
 
-    public Command(RoomGUi roomGUi, Logic logic) {
+    public Command(RoomGUI roomGUi, Logic logic) {
         gui = roomGUi;
         this.logic = logic;
         manager = new IconManager();
@@ -42,9 +43,29 @@ public class Command {
         String[] splitInputCommand;
         inputCommand = inputCommand.toLowerCase();
         splitInputCommand = inputCommand.split(" ");
-        if (this.logic.getActRoom().getGrantedDirections().contains(splitInputCommand[0]) || this.logic.getRiddleAnswers().contains(splitInputCommand[0])) {
+        if(logic.getActRoom().getName().equals(logic.getRoomByIndex(6).getName()) && correct){
+
+            if(inputCommand.equals("candela") && logic.canAccess(logic.getRoomByIndex(6))) {
+                correct = false;
+                this.logic.setPreviusRoom(this.logic.getActRoom());
+                gui.getTextField().setText("");
+                changeRoom();
+            }
+            else {
+                gui.getTextArea().setText("Riprova");
+                gui.getTextField().setText("");
+            }
+        }
+        else if (this.logic.getActRoom().getGrantedDirections().contains(splitInputCommand[0])) {
             Room futureRoom = this.logic.nextRoom(this.logic.getActRoom(), inputCommand);
-            if (this.logic.canAccess(futureRoom)) {
+
+            if(futureRoom.getName().equals(logic.getRoomByIndex(6).getName())){
+                gui.getTextField().setText("");
+                System.out.println("ENTRA");
+                gui.getTextArea().setText("Sono alta quando sono giovane,e corta quando invecchio. Non ho mai freddo,\n" + "Chi sono?");
+                logic.setActRoom(logic.getRoomByIndex(6));
+
+            }else if (this.logic.canAccess(futureRoom)) {
                 this.logic.setPreviusRoom(this.logic.getActRoom());
                 this.logic.setActRoom(futureRoom);
                 gui.getTextField().setText("");
@@ -171,16 +192,20 @@ public class Command {
         gui.getTextField().setText("");
     }
 
-    public boolean indovinelliTempio(String risposta, Room futureRoom) {
+    public boolean indovinelliTempio(String risposta) {
             gui.getTextField().setText("");
             gui.getTextArea().setText("Per poter accedere al Tempio Perduto devi risolvere l'indovinello!\n La mia vita può durare qualche ora, quello che produco mi divora. Sottile sono veloce, grossa sono lenta e il vento molto mi spaventa. Chi sono?");
             risposta = risposta.toLowerCase();
-            while(!risposta.equals("candela") && !risposta.equals("la candela")){
-
+            if(risposta != "candela") {
+                gui.getTextArea().setText("Riprova");
+                gui.getTextField().setText("");
+                return false;
             }
-            gui.getTextArea().setText("Complimenti hai indovinato, puoi proseguire con la tua avventura!");
-            gui.getTextField().setText("");
-            return true;
+            else{
+                gui.getTextArea().setText("Complimenti hai indovinato, puoi proseguire con la tua avventura!");
+                gui.getTextField().setText("");
+                return true;
+            }
 
     }
     public boolean save() throws ConfigurationException {

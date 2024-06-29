@@ -1,10 +1,8 @@
 import java.util.ArrayList;
 
-public class
-Room {
+public class Room {
     //attributi di Room
     private String name;    //nome della stanza
-    private Enemy enemy;    //nemico che possiamo trovare nella stanza
     private boolean thereIsCharacter;  //true se il personaggio principale è presente, false altrimenti
     private ArrayList<Item> neededItems;
     private ArrayList<Item> object;    //oggetti che si possono trovare all'interno della stanza
@@ -14,7 +12,6 @@ Room {
     //costruttori
     public Room(){
         this.name = "";
-        this.enemy = null;
         this.thereIsCharacter = false;
         this.neededItems = new ArrayList<Item>();
         this.object = new ArrayList<Item>();;
@@ -24,7 +21,6 @@ Room {
 
     public Room(String name){
         this.name = name;
-        this.enemy = null;
         this.thereIsCharacter = false;
         this.neededItems = new ArrayList<Item>();;
         this.object = new ArrayList<Item>();;
@@ -32,18 +28,8 @@ Room {
         this.grantedDirections = null;
     }
 
-    public Room(String name, Enemy enemy) {
+    public Room(String name, ArrayList<Item> object){
         this.name = name;
-        this.enemy = enemy;
-        this.thereIsCharacter = false;
-        this.neededItems = new ArrayList<Item>();;
-        this.object = new ArrayList<Item>();;
-        this.description = "";
-        this.grantedDirections = null;
-    }
-    public Room(String name, Enemy enemy, ArrayList<Item> object){
-        this.name = name;
-        this.enemy = enemy;
         this.thereIsCharacter = false;
         this.neededItems = new ArrayList<Item>();
         this.object = object;
@@ -59,13 +45,7 @@ Room {
         this.name = name;
     }
 
-    public Enemy getEnemy() {
-        return enemy;
-    }
 
-    public void setEnemy(Enemy enemy) {
-        this.enemy = enemy;
-    }
 
     public boolean getThereIsCharacter() {
         return thereIsCharacter;

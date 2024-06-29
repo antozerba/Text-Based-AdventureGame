@@ -8,7 +8,7 @@ public class Game {
     public static Font titleFont;
     //private  ArrayList<Room> gameRoom;
     private StartGui startGui;
-    private RoomGUi gui;
+    private RoomGUI gui;
     private StartHandler startHandler;
     private UploadHendler uploadHendler;
     private VisibilityManager manager;
@@ -47,7 +47,7 @@ public class Game {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Creating window for the room access
-            gui = new RoomGUi();
+            gui = new RoomGUI();
             logic = new Logic();
             logic.createRoom();
             logic.setRoom();
@@ -64,7 +64,7 @@ public class Game {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            gui = new RoomGUi();
+            gui = new RoomGUI();
             logic = new Logic();
             logic.createRoom();
             logic.setRoom();
