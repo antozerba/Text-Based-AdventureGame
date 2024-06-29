@@ -163,7 +163,6 @@ public class Logic {
         this.gameRoom[3].setNeededItems(new ArrayList<Item>(){{add(Item.Macete);}});
         this.gameRoom[3].setObject(new ArrayList<Item>(){{add(Item.ChiaveDellaSerpeSmeraldo);}});
         this.gameRoom[3].setGrantedDirections(directions.getOB());
-        this.gameRoom[3].setEnemy(Enemy.Snakes);
 
         //quinta stanza, Tempio perduto
         //this.gameRoom[4].setNeededItems(new ArrayList<Item>(){{add(Item.Macete);}});

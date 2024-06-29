@@ -14,7 +14,7 @@ import java.io.File;
 import java.nio.file.Paths;
 
 public class Saving {
-    private PropertiesConfiguration config = new PropertiesConfiguration("src/application.properties");
+    private PropertiesConfiguration config = new PropertiesConfiguration("src/resources/application.properties");
     private String accessKeyId = config.getString("aws.access_key_id");
     private String secretAccessKey = config.getString("aws.secret_access_key");
     private String bucket = config.getString("aws.s3.bucket");

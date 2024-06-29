@@ -16,14 +16,14 @@ import java.io.File;
 
 
 public class Command {
-    RoomGUi gui;
+    RoomGUI gui;
     IconManager manager;
     Logic logic;
     Saving saving;
     public int count;
     public boolean correct = true;
 
-    public Command(RoomGUi roomGUi, Logic logic) {
+    public Command(RoomGUI roomGUi, Logic logic) {
         gui = roomGUi;
         this.logic = logic;
         manager = new IconManager();

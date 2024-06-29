@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class RoomGUi extends JFrame {
+public class RoomGUI extends JFrame {
     private JPanel imagePanel;
     private JPanel textPanel;
     private JTextArea textArea;
@@ -18,7 +18,7 @@ public class RoomGUi extends JFrame {
 
    private ImageIcon image;
 
-    public RoomGUi() throws HeadlessException {
+    public RoomGUI() throws HeadlessException {
 
 
         //FONT
