@@ -1,0 +1,33 @@
+@startuml
+skinparam linetype ortho
+
+class Tempio {
+}
+
+class Oggetti {
+}
+
+class Tesoro {
+}
+
+class Avventuriero {
+}
+
+class StanzeDelTempio {
+}
+
+class Enigmi {
+}
+
+class Trappole {
+}
+
+Tempio "1" --> "1" Tesoro : Preserva
+Tesoro "1" <-- "1" Avventuriero : Trova
+Avventuriero "1" --> "1..n" Oggetti : Raccoglie
+Avventuriero "1" --> "1..n" StanzeDelTempio : Attraversa
+StanzeDelTempio "1..n" --> "1..n" Oggetti : Contengono
+StanzeDelTempio "1..n" --> "1..n" Trappole : Racchiudono
+Avventuriero "1" --> "1..n" Enigmi : Risolve
+
+@enduml

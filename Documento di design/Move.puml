@@ -1,0 +1,27 @@
+@startuml
+actor Attore
+
+participant Command
+participant Logic
+
+Attore -> Command: sendInput()
+Command -> Logic: receiveInput(direction)
+
+alt Comando valido
+    Command -> Logic: changeRoom()
+
+    par
+        Command -> Logic: showItems()
+        Command -> Logic: releaseItems
+    end
+
+    critical Stato aggiornato
+        Command -> Logic: showUpdate()
+    else Stato non aggiornato
+        Command -> Logic: showError()
+    end
+else Comando non valido
+    Command -> Attore: showError()
+end
+
+@enduml

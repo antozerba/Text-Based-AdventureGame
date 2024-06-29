@@ -1,0 +1,34 @@
+@startuml
+actor Attore 
+participant Command
+participant Logic 
+
+Attore -> Command : sendInput()
+Command -> Logic : receiveInput(command)
+
+Alt Movimento
+    Attore -> Command : changeRoom()
+        Par 
+            Command <- Logic : showItem()
+            Command -> Logic : releaseItems()
+        end
+            Critical Stato aggiornato 
+                Command <- Logic: showUpdate()
+            else Stato non aggiornato
+                Command -> Logic: showError()
+            end
+else Raccoglie oggetti
+    Attore -> Command : takeItems()
+    Attore <- Command : showItems()
+    Attore -> Command : addItem()
+else Altro Comando 
+    Attore <- Command : showError()
+end 
+@enduml
+
+
+
+
+
+
+   

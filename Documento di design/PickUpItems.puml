@@ -1,0 +1,23 @@
+@startuml
+actor Attore 
+participant Command
+participant Logic 
+
+Attore -> Command: sendRequest()
+Command -> Logic: takeItems()
+Par 
+    Command -> Logic: showItem()
+    Command <- Logic: releaseItem()
+end
+Alt Oggetto presente 
+    Command <- Logic: addItem()
+else Oggetto non presente
+    Command <- Logic: changeRoom()
+end
+Critical Stato aggiornato 
+Attore <- Command: updateStateGame()
+else Stato non aggiornato
+Attore <- Command: changeRoom()
+end
+@enduml
+

@@ -1,0 +1,264 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Room {
+  - String name
+  - Enemy enemy
+  - Boolean hasCharacter
+  - Character meetsCharacter
+  - ArrayList<Item> items
+  - String description
+  - ArrayList<String> genDirection
+  + Room(String)
+  + Room(String, Enemy)
+  + Room(String, Enemy, ArrayList<Item>)
+  + String getName()
+  + void setName(String)
+  + Enemy getEnemy()
+  + void setEnemy(Enemy)
+  + Character getMeetsCharacter()
+  + void setMeetsCharacter(Character)
+  + ArrayList<Item> getItems()
+  + void setItems(ArrayList<Item>)
+  + String getDescription()
+  + void setDescription(String)
+}
+
+class Direction {
+  - ArrayList<String> genNB
+  - ArrayList<String> genNEOB
+  - ArrayList<String> genOB
+  - ArrayList<String> genE
+  - ArrayList<String> genSEOB
+  - ArrayList<String> genSEB
+  - ArrayList<String> genSB
+  - ArrayList<String> genSOB
+  - ArrayList<String> genSO
+  - ArrayList<String> genSWOB
+  - ArrayList<String> genWB
+  - ArrayList<String> genNWOB
+  + Direction()
+  + ArrayList<String> getNB()
+  + ArrayList<String> getNEOB()
+  + ArrayList<String> getOB()
+  + ArrayList<String> getE()
+  + ArrayList<String> getSEOB()
+  + ArrayList<String> getSEB()
+  + ArrayList<String> getSB()
+  + ArrayList<String> getSOB()
+  + ArrayList<String> getSO()
+  + ArrayList<String> getSWOB()
+  + ArrayList<String> getWB()
+  + ArrayList<String> getNWOB()
+}
+
+class Character {
+  - String name
+  - ArrayList<Item> backpack
+  + Character()
+  + Character(String)
+  + String getName()
+  + void setName(String)
+}
+
+class Item {
+  - String name
+  + String toString()
+}
+
+class Command {
+  - RoomGUI gui
+  - IconManager manager
+  - Logic logic
+  - Save saving
+  - int sc
+  + Command(RoomGUI, Logic)
+  + void receiveInput(String)
+  + void firstRoom()
+  + void printBackpack()
+  + void changeRoom()
+  + void indovinelliTempio(String, Room)
+  + void end()
+  + void createFile()
+}
+
+class RoomGUI {
+  - JPanel imagePanel
+  - JTextArea textArea
+  - JTextField textField
+  - JScrollPane scrollPane
+  - VisibilityManager vm
+  - Font customFont
+  + RoomGUI()
+  + JPanel getImagePanel()
+  + JTextArea getTextArea()
+  + JTextField getTextField()
+  + JScrollPane getScrollPane()
+  + Font getCustomFont()
+}
+
+class VisibilityManager {
+  - Command command
+  - RoomGUI gui
+  - Logic logic
+  + VisibilityManager(RoomGUI, Logic)
+  + void KeyPressed(KeyEvent)
+  + void KeyTyped(KeyEvent)
+  + void KeyReleased(KeyEvent)
+}
+
+class IconManager {
+  - Icon iconW
+  - IconManager manager
+  + IconManager()
+  + void addImage()
+}
+
+class Game {
+  - Font titleFont
+  - Scanner sc
+  - JFrame window
+  - JPanel startPanel
+  - JPanel startButtonPanel
+  - JLabel titleNameLabel
+  - JButton startButton
+  + Game()
+  + void startGame()
+  + void createGame()
+  + void setUpHandler(ActionEvent e)
+  + void addActionListener(ActionEvent e)
+}
+
+class DeathJungle {
+  + static void main(String[] args)
+  + int inizialLevel(Scanner scan)
+}
+
+class ObjectGame {
+  - Item name
+  - String description
+  + ObjectGame(Item name, String description)
+  + Item getName()
+  + void setName(Item)
+  + String getDescription()
+  + void setDescription(String)
+}
+
+class Logic {
+  - Scanner sc
+  - String name
+  - Game game
+  - Character mainCharacter
+  - Room room
+  - Room nextRoom
+  - Room previousRoom
+  - Directions directions
+  - ArrayList<String> commands
+  - ArrayList<String> ridateAnswers
+  + Logic()
+  + void setScan(Scanner)
+  + void setName(String)
+  + void setMainCharacter(Character)
+  + void setCurrentRoom(Room)
+  + void setNextRoom(Room)
+  + void setPreviousRoom(Room)
+  + void setDirection(Directions)
+  + Room getPreviousRoom()
+  + Room getNextRoom()
+  + Room getCurrentRoom()
+  + Character getMainCharacter()
+  + String getName()
+  + Scanner getScan()
+  + void setCommands(ArrayList<String>)
+  + void setRiddleAnswers(ArrayList<String>)
+  + ArrayList<String> getCommands()
+  + ArrayList<String> getRiddleAnswers()
+}
+
+class StartGUI {
+  - Font titleFont
+  - Scanner sc
+  - JFrame window
+  - JPanel startPanel
+  - JPanel startButtonPanel
+  - JLabel titleNameLabel
+  - JButton startButton
+  + StartGUI()
+  + void main(String[] args)
+  + void startGame()
+  + void setUpHandler(ActionEvent e)
+  + void addActionListener(ActionEvent e)
+}
+
+class Savings {
+  - PropertiesConfiguration config
+  + int save()
+  + int uploadAccessKey()
+  + int savingConfiguration()
+  + int uploadFile()
+  + String saveConfigurationData()
+  + String saveAccessCredentials
+  + void setCredentials(String accessCreds)
+  + void saving(PropertiesConfiguration config)
+}
+
+class Icon {
+  - BufferedImage image
+  + Icon()
+  + Icon(BufferedImage)
+  + BufferedImage getBufferedImage()
+  + void setBufferedImage(BufferedImage)
+}
+
+class IconManager {
+  - Icon iconW
+  - IconManager manager
+  + IconManager()
+  + void addImage()
+}
+
+class GamePanel {
+    - Font titleFont
+    - StartGUI StartGUI
+    - RoomGUI gui
+    - StartHandler startHandler
+    - UploadHendler uploadHendler
+    - VisibilityManager manager
+    + Game()
+    + void startGame()
+     - class StartHandler
+    + void ActionPerformed(ActionEvent)
+    - class UploadHendler
+}
+
+class ObjectGame {
+    - Item items
+    - String description 
+    - int ID 
+    + ObjectGame(Item name)
+    + ObjectGame(Item name, String description)
+    + Item getName()
+    + Item setName(Item name)
+    + String getDescription()
+    + void setDescription(String description)
+    + int getID()
+    + void setID(int ID)
+
+}
+
+VisibilityManager "1" --> "1..*" Command : Manages
+Command "1..n" --> "1" Character : Guide
+Character "1" --> "1..*" Room: Goes through
+Character "1" --> "1..*" Item: Finds
+Character "1" --> "1" Game : Plays
+Logic "1" --> "1" Game: Runs
+StartGUI "1" --> "1" DeathJungle : Starts
+DeathJungle "1" --> "1" Game : Initializes
+GamePanel "1" --> "1" Game : Displays
+GamePanel "1" --> "1..*" Icon : Shows
+IconManager "1" --> "1..*" Icon : Manages
+ObjectGame "1" --> "1..*" Item : Describes
+RoomGUI "1..*" --> "1..*" Room : Represents
+Direction "1..*" --> "1..*" Room : Conduct to
+Command "1..*" --> "1" Savings : Invocates
+@enduml

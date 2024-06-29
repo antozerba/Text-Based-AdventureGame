@@ -1,0 +1,59 @@
+@startuml
+actor Giocatore
+
+participant Sistema
+participant AWS
+
+Giocatore -> Sistema: firstRoom()
+Sistema -> Giocatore: findDescription()
+
+par
+    critical Stanza valida e descrizione aggiornata
+        Giocatore -> Sistema: changeRoom()
+        Sistema -> Giocatore: Room.getDescription()
+    end critical
+
+    par
+        Giocatore -> Sistema: takeItem()
+        Sistema -> Giocatore: showItem()
+
+        Giocatore -> Sistema: indovinelliTempio()
+        Sistema -> Giocatore: verificaSoluzioneIndovinelli()
+    end par
+
+    alt Giocatore incontra creature
+        alt Giocatore possiede l'arma necessaria
+            Giocatore -> Sistema: defeatCreature()
+            Sistema -> Giocatore: nextRoom()
+        else Giocatore non possiede l'arma necessaria
+            Giocatore -> Sistema: previousRoom()
+        end alt
+
+        Giocatore -> Sistema: endGame()
+    else Giocatore evita creature
+        Giocatore -> Sistema: endGame()
+    end alt
+
+
+Sistema -> Giocatore: overcomeChallenge()
+Sistema -> Giocatore: presentNewChallenges()
+
+critical Sfida superata e stato aggiornato
+    Giocatore -> Sistema: overcomeChallenge()
+    Sistema <- Giocatore: verifyChallengeOvercome()
+end critical
+
+par
+    Giocatore -> Sistema: enterTreasureRoom()
+    Sistema -> Giocatore: takeTreasure()
+end par
+end par
+Sistema -> AWS: download(config)
+AWS -> Sistema: configurationData
+
+Sistema -> AWS: upload(configurationData)
+AWS <- Sistema: uploadConfirmation
+
+Sistema <- AWS: saving(configuration)
+AWS <- Sistema: savingConfirmation
+@enduml
