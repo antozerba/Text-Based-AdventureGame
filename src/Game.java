@@ -16,6 +16,62 @@ public class Game {
 
     //simone
     //private Scanner scan;
+
+    public static Font getTitleFont() {
+        return titleFont;
+    }
+
+    public static void setTitleFont(Font titleFont) {
+        Game.titleFont = titleFont;
+    }
+
+    public StartGui getStartGui() {
+        return startGui;
+    }
+
+    public void setStartGui(StartGui startGui) {
+        this.startGui = startGui;
+    }
+
+    public RoomGUI getGui() {
+        return gui;
+    }
+
+    public void setGui(RoomGUI gui) {
+        this.gui = gui;
+    }
+
+    public StartHandler getStartHandler() {
+        return startHandler;
+    }
+
+    public void setStartHandler(StartHandler startHandler) {
+        this.startHandler = startHandler;
+    }
+
+    public UploadHendler getUploadHendler() {
+        return uploadHendler;
+    }
+
+    public void setUploadHendler(UploadHendler uploadHendler) {
+        this.uploadHendler = uploadHendler;
+    }
+
+    public VisibilityManager getManager() {
+        return manager;
+    }
+
+    public void setManager(VisibilityManager manager) {
+        this.manager = manager;
+    }
+
+    public Logic getLogic() {
+        return logic;
+    }
+
+    public void setLogic(Logic logic) {
+        this.logic = logic;
+    }
     //private int gameID;
     /*private Character mainCharacter;
     private Room actRoom;
