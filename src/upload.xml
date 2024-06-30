@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <game>
     <mainCharacter>
-        <name>simone</name>
-        <backpack>
-            <item id="0">Torcia</item>
-            <item id="1">Chiave Della Serpe Smeraldo</item>
-            <item id="2">Chiave Dell Avventuriero</item>
-        </backpack>
+        <name/>
+        <backpack/>
     </mainCharacter>
     <rooms>
         <room id="0">
             <thereIsCharacter>false</thereIsCharacter>
             <needItem/>
-            <object/>
+            <object>
+                <objItem id="0"/>
+                Torcia
+            </object>
         </room>
         <room id="1">
-            <thereIsCharacter>true</thereIsCharacter>
+            <thereIsCharacter>false</thereIsCharacter>
             <needItem/>
-            <object/>
+            <object>
+                <objItem id="0"/>
+                Chiave Dell Avventuriero
+            </object>
         </room>
         <room id="2">
             <thereIsCharacter>false</thereIsCharacter>
             <needItem/>
-            <object/>
+            <object>
+                <objItem id="0"/>
+                Macete
+            </object>
         </room>
         <room id="3">
             <thereIsCharacter>false</thereIsCharacter>
-            <needItem/>
-            <object/>
+            <needItem>
+                <need id="0">Macete</need>
+            </needItem>
+            <object>
+                <objItem id="0"/>
+                Chiave Della Serpe Smeraldo
+            </object>
         </room>
         <room id="4">
             <thereIsCharacter>false</thereIsCharacter>
