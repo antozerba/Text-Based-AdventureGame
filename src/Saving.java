@@ -65,6 +65,9 @@ public class Saving {
         } finally {
             client.close();
         }
+    }
 
+    public void setClient(S3Client client) {
+        this.client = client;
     }
 }

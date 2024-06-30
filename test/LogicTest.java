@@ -51,17 +51,5 @@ class LogicTest {
         // Add assertions based on the expected behavior of nextRoom()
     }
 
-    /*@Test
-    void testGameLoop() {
-        Logic logic = new Logic();
-        logic.setGameRoom(new Room[14]);
-        logic.createRoom();
-        logic.setRoom();
-        // Assuming gameLoop executes the game logic, test its functionality
-        logic.gameLoop();
-        // Add assertions based on the expected behavior during the game loop
-    }*/
-
-    // Add more tests for other methods in your Logic class
 
 }

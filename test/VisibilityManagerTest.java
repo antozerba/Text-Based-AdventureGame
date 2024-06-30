@@ -12,21 +12,28 @@ class VisibilityManagerTest {
     private VisibilityManager visibilityManager;
     private RoomGUI mockGui;
     private Logic mockLogic;
+    private Command mockCommand;
 
     @BeforeEach
     void setUp() {
         mockGui = Mockito.mock(RoomGUI.class);
         mockLogic = Mockito.mock(Logic.class);
+        mockCommand = Mockito.mock(Command.class);
+
         JTextField mockTextField = Mockito.mock(JTextField.class);
         when(mockTextField.getText()).thenReturn("test command");
 
-        // Configura mock di RoomGUI per restituire il mock di JTextField
+        // Configure mock RoomGUI to return the mock JTextField
         when(mockGui.getTextField()).thenReturn(mockTextField);
-        // Mock per restituire una stanza valida quando getActRoom() viene chiamato
+
+        // Configure mock Logic to return a valid Room when getRoomByIndex(int) is called
         Room mockRoom = new Room("Mock Room");
-        when(mockLogic.getActRoom()).thenReturn(mockRoom);
+        when(mockLogic.getRoomByIndex(anyInt())).thenReturn(mockRoom);
 
         visibilityManager = new VisibilityManager(mockGui, mockLogic);
+
+        // Set the Command object manually
+        visibilityManager.command = mockCommand;
     }
 
     @Test
@@ -36,12 +43,7 @@ class VisibilityManagerTest {
 
         visibilityManager.keyPressed(mockEvent);
 
-        // Assicurati che il metodo receiveInput del command sia chiamato correttamente
-        verify(mockLogic, times(1)).getActRoom();
-        // Esempio di ulteriori verifiche
-        verify(mockGui, times(1)).getTextField();
-        verify(mockLogic, times(1)).nextRoom(any(), eq("test command"));
+        // Verify that the receiveInput method of the command is called correctly
+        verify(mockCommand, times(1)).receiveInput("test command");
     }
-
-    // Aggiungi altri test secondo necessità per altri scenari di input
 }

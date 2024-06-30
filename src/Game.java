@@ -6,16 +6,12 @@ import java.io.IOException;
 public class Game {
 
     public static Font titleFont;
-    //private  ArrayList<Room> gameRoom;
     private StartGui startGui;
     private RoomGUI gui;
     private StartHandler startHandler;
     private UploadHendler uploadHendler;
     private VisibilityManager manager;
     private Logic logic;
-
-    //simone
-    //private Scanner scan;
 
     public static Font getTitleFont() {
         return titleFont;
@@ -72,14 +68,6 @@ public class Game {
     public void setLogic(Logic logic) {
         this.logic = logic;
     }
-    //private int gameID;
-    /*private Character mainCharacter;
-    private Room actRoom;
-    private Room previusRoom;
-    //private Room[] gameRoom;
-    private Directions directions;
-    private final ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("take", "release", "help", "backpack", "now"));
-*/
 
 
 
@@ -96,8 +84,6 @@ public class Game {
 
 
     }
-    public void startGame(){
-    }
     class StartHandler implements ActionListener{
 
         @Override
@@ -113,7 +99,6 @@ public class Game {
             gui.setManager(manager);
             manager.getCommand().setCount(0);
             startGui.setVisible(false);
-
         }
     }
     class UploadHendler implements ActionListener{
