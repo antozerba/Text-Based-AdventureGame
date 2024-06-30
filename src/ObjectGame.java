@@ -5,16 +5,29 @@ public class ObjectGame {
     private String description;
     private static int ID;  //codice univoco che mi indentifica l'oggetto
 
+    /**
+     * Costruttore con parametro
+     * @param nome
+     */
     public ObjectGame(Item nome){
         this.name = nome;
         this.description = "";
     }
 
+    /**
+     * Costruttore con parametro
+     * @param name
+     * @param description
+     */
     public ObjectGame(Item name, String description) {
         this.name = name;
         this.description = description;
     }
 
+    /**
+     * Metodi Getter e Setter
+     * @return
+     */
     public Item getName() {
         return name;
     }

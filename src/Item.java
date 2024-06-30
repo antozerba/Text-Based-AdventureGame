@@ -1,3 +1,7 @@
+/**
+ * Classe Enum contenente i vari Item che è possibile trovare nelle stanze
+ */
+
 public enum Item {
     Torcia,
     Macete,
@@ -9,6 +13,10 @@ public enum Item {
     ChiaveDelTesoroAntico,
     TesoroAntico;
 
+    /**
+     * Ovveride del metodo toString per consentire la stampa a terminale
+     * @return
+     */
     @Override
     public String toString(){
         switch(this){

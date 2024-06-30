@@ -9,7 +9,9 @@ public class Room {
     private String description;
     private ArrayList<String> grantedDirections;
 
-    //costruttori
+    /**
+     * Costruttori
+     */
     public Room(){
         this.name = "";
         this.thereIsCharacter = false;
@@ -37,6 +39,10 @@ public class Room {
         this.grantedDirections = null;
     }
 
+    /**
+     * metodi Getter e Setter
+     * @return
+     */
     public String getName() {
         return name;
     }
@@ -44,8 +50,6 @@ public class Room {
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     public boolean getThereIsCharacter() {
         return thereIsCharacter;
@@ -87,12 +91,22 @@ public class Room {
         this.grantedDirections = grantedDirections;
     }
 
+    /**
+     * Override del metodo equals
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         Room room = (Room) obj;
         return this.name.equals(room.name);
     }
 
+    /**
+     * metodo che permette di aggiungere un Item alla stanza
+     * @param item
+     * @return
+     */
     public boolean addItem(Item item){
         if(this.object.add(item)){
             return true;

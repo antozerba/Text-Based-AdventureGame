@@ -2,7 +2,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Directions {
-
+    /**
+     * Classse ceh associa a ogni stanza tutte le possibili direzioni consentite associata
+     * ad essa, tramite un ArrayList contente appunto le direzioni permesse
+     */
     private final ArrayList<String> NB = new ArrayList<String>(Arrays.asList("nord", "back"));
     private final ArrayList<String> NESOB = new ArrayList<String>(Arrays.asList("nord", "sud", "est", "ovest", "back"));
     private final ArrayList<String> SB = new ArrayList<String>(Arrays.asList("sud", "back"));
@@ -16,8 +19,15 @@ public class Directions {
     private final ArrayList<String> NEB = new ArrayList<String>(Arrays.asList("nord", "est", "back"));
     private final ArrayList<String> NOB = new ArrayList<String>(Arrays.asList("nord", "ovest", "back"));
 
+    /**
+     * Costruttore
+     */
     public Directions() {};
 
+    /**
+     * Metodi Getter per ogni ArrayList
+     * @return
+     */
     public ArrayList<String> getNB() {
         return NB;
     }

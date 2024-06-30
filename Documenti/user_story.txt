@@ -1,0 +1,15 @@
+Link Jira: https://giacomobonettoo2003.atlassian.net/jira/software/projects/SCRUM/issues/SCRUM-4?jql=project%20%3D%20%22SCRUM%22%20ORDER%20BY%20created%20DESC
+
+1)“As a player, I want there to be some riddles in the game, so that is possible to access the other rooms by solving them”.
+
+2)“As a player, I want there to be an initial menu, so that it’s possible to start a new game or upload an already started game”.
+
+3)“As a player, I want the game to have items inside the temple, so that is possible to unlock the doors and continue the game”.
+
+4)“As a player, I want to be able to save a game and leave the game, so that is possible to save the data and progress”.
+
+5)“As a player, I want to have a backpack to store items, so that I can see and check the items I have collected in the game”.
+
+6)“As a player, I want to be able to move around the rooms using commands, so that I can explore the map and discover new rooms and new items.
+
+7)“As a player, I want there to be the possibility of showing the possible commands to type from the keyboard, so that is an help during the game for the player”.

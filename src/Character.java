@@ -6,6 +6,9 @@ public class Character {
     private String name;
     private ArrayList<Item> backpack;
 
+    /**
+     * Cotruttori
+     */
     public Character(){
         this.name = null;
         this.backpack = new ArrayList<Item>();
@@ -16,6 +19,10 @@ public class Character {
         this.backpack = new ArrayList<Item>();
     }
 
+    /**
+     * Metodi Getter e Setter
+     * @return
+     */
     public String getName() {
         return name;
     }
@@ -32,6 +39,11 @@ public class Character {
         this.backpack = backpack;
     }
 
+    /**
+     * Metodo che permette di aggiungere un Item al backpack del personaggio
+     * @param item
+     * @return
+     */
     public boolean addItem(Item item){
         if(this.backpack.size() < 5){
             this.backpack.add(item);

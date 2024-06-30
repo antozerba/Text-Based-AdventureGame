@@ -13,7 +13,9 @@ import java.util.Scanner;
 //classe principale del gioco
 
 public class Logic {
-    //attributi di Game
+    /**
+     * attributi di Game
+     */
     private Scanner scan;
     private int gameID;
     private Character mainCharacter;
@@ -22,9 +24,12 @@ public class Logic {
     private Room[] gameRoom;
     private Directions directions;
     private final ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("take", "release", "help", "backpack", "now", "save", "download"));
-
     private final ArrayList<String> riddleAnswers = new ArrayList<String>(Arrays.asList("candela", "la candela"));
 
+    /**
+     * Metodi Getter e Setter
+     * @return
+     */
     public Scanner getScan() {
         return scan;
     }
@@ -81,6 +86,33 @@ public class Logic {
         return otherCommands;
     }
 
+    public ArrayList<String> getRiddleAnswers() {
+        return riddleAnswers;
+    }
+
+    public void setMainCharacter(String name){
+        this.mainCharacter.setName(name);
+    }
+
+    public Character getMainCharacter(){
+        return this.mainCharacter;
+    }
+
+    public int getRoomIndex(){
+        for(int i=0; i<this.gameRoom.length; i++){
+            if(gameRoom[i].getThereIsCharacter())
+                return i;
+        }
+        return -1;
+    }
+
+    public Room getRoomByIndex(int index){
+        return this.gameRoom[index];
+    }
+
+    /**
+     * Costruttori
+     */
     public Logic(){
         this.gameRoom = null;
         this.actRoom = null;
@@ -90,10 +122,10 @@ public class Logic {
         this.directions = new Directions();
     }
 
-    public ArrayList<String> getRiddleAnswers() {
-        return riddleAnswers;
-    }
 
+    /**
+     * permette la creazione e l'inizializzazione di ogni stanza associando ad essa un nome e una posizione nell'array
+     */
     public void createRoom(){
         this.gameRoom = new Room[14];
         String[] roomName = {"Giugla", "Stanza Pluviale", "Boscaglia", "Sentiero dei Serpenti", "Tempio Perduto", "Camera dei Riti Sacri", "Sala dell'Altare Antico", "Anticamera", "Stanza delle Reliquie Celesti", "Covo delle Anime Perdute", "Stanza degli Enigmi", "Antro dell'Oscurità", "Corridoio dei Destini Intrecciati", "Stanza del Tesoro"};
@@ -101,12 +133,11 @@ public class Logic {
             gameRoom[i] = new Room(roomName[i]);
             //System.out.println(gameRoom[i].getName());
         }
-        /*gameRoom[0].setThereIsCharacter(true);
-        this.actRoom = gameRoom[0];*/
-        System.out.println(findDescription());
-
     }
 
+    /**
+     * Stampa a terminale la stanza corrente in cui ci si trova
+     */
     public void actualGameRoom(){
         for(int i = 0; i < this.gameRoom.length; i++){
             if(gameRoom[i].getThereIsCharacter()){
@@ -115,7 +146,10 @@ public class Logic {
         }
     }
 
-    //metodo che contiene tutte le descrizioni delle varie stanze e che grazie in base all'indice passato ritorna la giusta descrizione
+    /**
+     * metodo che contiene tutte le descrizioni delle varie stanze e che grazie in base all'indice passato ritorna la giusta descrizione
+     */
+
     public String findDescription(){
         String[] descriptionRoom = {(" ti trovi disperso nel bel mezzo della giungla, il tuo scopo è quello di trovare il tempio e impossesarti del tesoro perduto."),
                 ("Ti sei addentrato nella zona della giungla più oscura, la foresta pluviale, di tutte e sei finito in un vicolo cieco, ma  mai dire mai che magari qualcosa di utile lo puoi trovare... \n"),
@@ -126,18 +160,19 @@ public class Logic {
                         "la porta e poi avrai bisogno di due chiavi per aprirla..."),
                 ("Sei entrato nella Camera dei Riti Sacri, anticamente usata per compiere rituali spirituali e religiosi.\n Prosegui con la tua avventura..."),
                 ("Se sei arrivato fino a qui vuol dire che sei riuscito a risolvere l'enigma, ora non ti resta che trovare la stanza del Tesoro Perduto, buona fortuna!"),
-                (this.mainCharacter.getName() + " ti trovi nell'Anticamera una zona misteriosa, prova a cercare che magari qualcosa di utile puoi trovare..."),
-                ("La stanza delle Reliquie Celesti un tempo era collegato alla Camera dei Riti Sacri, ma a differenza di quella stanza in questa puoi trovare le reliquie dei vecchi Templari..."),
+                (this.mainCharacter.getName() + " ti trovi nell'Anticamera, una zona misteriosa, prova a cercare che magari qualcosa di utile puoi trovare..."),
+                ("La stanza delle Reliquie Celesti un tempo era collegata alla Camera dei Riti Sacri, ma a differenza di quella stanza in questa puoi trovare le reliquie dei vecchi Templari..."),
                 ("In questa stanza si facevano riti per invocare le anime dei propri cari... magari qualcuno puoi trovare che qualche utile consiglio ti può dare.."),
-                ("Sei arrivato nella Stanza degli Enigmi, qua se qualcosa di importante vuoi trovare alcune domande devi superare."),
-                ("Se fin qui sei arrivato vuol dire che qualcosa di importante hai combinato, ma la tua avventura non è ancora conclusa, sei sempre più vicino a trovare il tesoro, ma aimè in un vicolo cieco sei finito.. l'unica è tornare indietro."),
+                ("Sei arrivato nella Stanza degli Enigmi, stanza nella quale i vecchi saggi depositivano tutti i loro segreti e le loro domande più misteriose"),
+                ("Se fin qui sei arrivato vuol dire che qualcosa di importante hai combinato, ma la tua avventura non è ancora conclusa, sei sempre più vicino a trovare il tesoro, ma aimè in un vicolo cieco sei finito.. l'unica soluzione è quella tornare indietro."),
                 (this.mainCharacter.getName() + " sei quasi arrivato, per accedere alla fatidica stanza in direzione di dove sorge il sole devi proseguire.."),
-                ("Complimenti " + this.mainCharacter.getName() + " sei arrivato nella stanza del Tesoro Perduto!")};
+                ("Complimenti " + this.mainCharacter.getName() + " sei arrivato nella stanza del Tesoro Perduto! \n SEI RIUSCITO A FINIRE IL GIOC CON SUCCESSO!!")};
 
-        //System.out.println("La lunghezza della descrizone è di: " + descriptionRoom.length);
+        //associa a ogni stanza la corretta descrizione
         for(int i = 0; i < descriptionRoom.length; i++){
             this.gameRoom[i].setDescription(descriptionRoom[i]);
         }
+        //se il personaggio si trova nella stanza j allora il metodo returna la descrizione di tale stanza
         for(int j = 0; j < this.gameRoom.length; j++){
             if(this.gameRoom[j].getThereIsCharacter()){
                 return this.gameRoom[j].getDescription();
@@ -146,6 +181,10 @@ public class Logic {
         return "";
     }
 
+    /**
+     * a ogni stanza associa le direzioni consentite, eventuali Item che si posso trovare nella stanza e infine eventuali Item
+     * necessari per accedere a quella stanza
+     */
     public void setRoom(){
         //prima stanza, giungla
         this.gameRoom[0].setObject(new ArrayList<Item>(){{add(Item.Torcia);}});
@@ -165,7 +204,6 @@ public class Logic {
         this.gameRoom[3].setGrantedDirections(directions.getOB());
 
         //quinta stanza, Tempio perduto
-        //this.gameRoom[4].setNeededItems(new ArrayList<Item>(){{add(Item.Macete);}});
         this.gameRoom[4].setGrantedDirections(directions.getNSB());
 
         //sesta stanza, Camera dei Riti Sacri
@@ -201,16 +239,18 @@ public class Logic {
         this.gameRoom[12].setGrantedDirections(directions.getESB());
 
         //quattordicesima stanza, Stanza del Tesoro
-        this.gameRoom[13].setNeededItems(new ArrayList<Item>(){{add(Item.ChiaveDelTesoroAntico); /*add(Item.CaliceDelSangueAntico);*/ }});
+        this.gameRoom[13].setNeededItems(new ArrayList<Item>(){{add(Item.ChiaveDelTesoroAntico);}});
         this.gameRoom[13].setObject(new ArrayList<Item>(){{add(Item.TesoroAntico);}});
         this.gameRoom[13].setGrantedDirections(directions.getNOB());
     }
-    //sono in una stanza, metto un comando tra quelli possibili, se è una direzione mi sposto di stanza, altrimenti mi comporto di conseguenza
-    public void gameLoop(){
+
+    /**
+     * sono in una stanza, metto un comando tra quelli possibili, se è una direzione mi sposto di stanza, altrimenti mi comporto di conseguenza
+     */
+    /*public void gameLoop(){
         String command;
         String[] splitCommand;
         while(!this.gameRoom[13].getThereIsCharacter() && this.actRoom != this.gameRoom[13]){
-            //showItem();
             System.out.print("\nInserisci il prossimo comando per proseguire: ");
             do {
                 command = this.scan.nextLine();
@@ -233,8 +273,13 @@ public class Logic {
                 }
             }while(!actRoom.getGrantedDirections().contains(command));
         }
-    }
+    }*/
 
+    /**
+     * in base alla prossima stanza a cui vorrei accedere vedo se è possibile farlo
+     * @param nextRoom
+     * @return
+     */
     public boolean canAccess(Room nextRoom){
         //passo tutti gli elementi che il mainCharacter contiene nello zaino
         for(int i = 0; i < this.mainCharacter.getBackpack().size(); i++){
@@ -255,6 +300,12 @@ public class Logic {
         }
     }
 
+    /**
+     * in base alla stanza in cui sono ora e alla direzione in cui voglio muovermi returno la prossima stanza corrispondente a quella direzione
+     * @param actualRoom
+     * @param command
+     * @return
+     */
     public Room nextRoom(Room actualRoom, String command){
         if(actualRoom == this.gameRoom[0]){
             this.gameRoom[0].setThereIsCharacter(false);
@@ -311,7 +362,6 @@ public class Logic {
             }else{
                 return actualRoom;
             }
-            //siamo nel tempio perduto
         }else if(actualRoom == this.gameRoom[4]){
             this.gameRoom[4].setThereIsCharacter(false);
             if(command.equals("nord")){
@@ -453,6 +503,10 @@ public class Logic {
         }
     }
 
+    /**
+     * mostra gli Item presenti nella stanza
+     * @return
+     */
     public String showItem(){
         String s = ("\nGli Item presenti in questa stanza sono: \n");
         for(int i = 0; i < this.actRoom.getObject().size(); i++){
@@ -461,6 +515,10 @@ public class Logic {
         return s;
     }
 
+    /**
+     * funzione usata per rilasciare un oggetto dallo zaino
+     * @param choice
+     */
     public void releaseFunction(int choice){
         if(choice >= 0 && choice < this.mainCharacter.getBackpack().size()){
             this.actRoom.addItem(this.mainCharacter.getBackpack().get(choice));
@@ -471,25 +529,9 @@ public class Logic {
         }
     }
 
-    public void setMainCharacter(String name){
-        this.mainCharacter.setName(name);
-    }
-
-    public Character getMainCharacter(){
-        return this.mainCharacter;
-    }
-    public int getRoomIndex(){
-        for(int i=0; i<this.gameRoom.length; i++){
-            if(gameRoom[i].getThereIsCharacter())
-                return i;
-        }
-        return -1;
-    }
-
-    public Room getRoomByIndex(int index){
-        return this.gameRoom[index];
-    }
-
+    /**
+     * funzione utilizzata per creare il documento xml del file di gioco
+     */
     public void data(){
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
