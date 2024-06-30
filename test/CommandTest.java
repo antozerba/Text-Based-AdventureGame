@@ -43,11 +43,6 @@ class CommandTest {
         assertEquals("Comando non riconosciuto!", gui.getTextArea().getText());
     }
 
-    @Test
-    void printBackPack() {
-        // Not implemented in Command class, just testing that it does nothing
-        command.printBackPack();
-    }
 
     @Test
     void changeRoom() {

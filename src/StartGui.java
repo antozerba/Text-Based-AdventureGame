@@ -1,3 +1,7 @@
+/**
+ * Classe che implementa l'interfeccia grafica della schermata iniziale all'avvio del gioco
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -11,10 +15,17 @@ public class StartGui extends JFrame{
     private JButton uploadButton;
     private JPanel bottonPanel;
 
-
+    /**
+     * Default Constructor
+     * @throws HeadlessException
+     * @throws IOException
+     * @throws FontFormatException
+     */
     public StartGui() throws HeadlessException, IOException, FontFormatException {
 
-        //FONT
+        /**
+         * Aquisizione Font
+         */
         InputStream inputStream = getClass().getResourceAsStream("font/PressStart2P-Regular.ttf");
         try {
             titleFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(45f);
@@ -24,7 +35,9 @@ public class StartGui extends JFrame{
             throw new RuntimeException(e);
         }
 
-        //WINDOW
+        /**
+         * FRAME-WINDOW
+         */
         setSize(800,600);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,7 +45,9 @@ public class StartGui extends JFrame{
         setLocationRelativeTo(null);
         getContentPane().setBackground(Color.BLACK);
 
-        //TITLE
+        /**
+         * TITOLO
+         */
         titlePanel = new JPanel();
         titlePanel.setBounds(100,100,600,150);
         titlePanel.setBackground(Color.black);
@@ -40,15 +55,9 @@ public class StartGui extends JFrame{
         titleLabel.setForeground(Color.GREEN);
         titleLabel.setFont(titleFont);
 
-
-     /*   //CenteringTitle
-        Box box = new Box(BoxLayout.Y_AXIS);
-        box.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        box.add(Box.createVerticalGlue());
-        box.add(titlePanel);
-        box.add(Box.createVerticalGlue());*/
-
-        //STARTYBOTTON
+        /**
+         * START BUTTON
+         */
         startButton = new JButton("Start");
         startButton.setBackground(Color.BLACK);
         startButton.setFont(new Font("Arial", Font.PLAIN, 23));
@@ -58,14 +67,18 @@ public class StartGui extends JFrame{
         bottonPanel.setBackground(Color.BLACK);
 
 
-        //UPLOADBOTTON
+        /**
+         * UPLOADBOTTON
+         */
         uploadButton = new JButton("Upload");
         uploadButton.setBackground(Color.BLACK);
         uploadButton.setFont(new Font("Arial", Font.PLAIN, 23));
         uploadButton.setPreferredSize(new Dimension(120,80));
 
 
-        //ADDING COMPONENT TO FRAME
+        /**
+         * ADDING COMPONENT TO FRAME
+         */
         titlePanel.add(titleLabel);
         bottonPanel.add(startButton);
         bottonPanel.add(uploadButton);
@@ -73,10 +86,20 @@ public class StartGui extends JFrame{
         add(bottonPanel);
         setVisible(true);
     }
-    public void setStartHandler(Game.StartHandler hendler){
-        startButton.addActionListener(hendler);
+
+    /**
+     * Setter dell'hendler per il botton Start
+     * @param startHandler
+     */
+    public void setStartHandler(Game.StartHandler startHandler){
+        startButton.addActionListener(startHandler);
     }
-    public void setUploadHendler(Game.UploadHendler hendler){
-        uploadButton.addActionListener(hendler);
+
+    /**
+     * Setter dell'hendler per il bottone Upload
+     * @param uploadHendler
+     */
+    public void setUploadHendler(Game.UploadHendler uploadHendler){
+        uploadButton.addActionListener(uploadHendler);
     }
 }

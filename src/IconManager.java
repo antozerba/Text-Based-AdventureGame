@@ -1,3 +1,6 @@
+/**
+ * Classe che gestisce lo storing della varie immagini in una array di BufferImage
+ */
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +13,9 @@ public class IconManager {
         addImages();
     }
 
+    /**
+     * Metodo che inserisce le immagini nell'array iconArray
+     */
     public void addImages(){
         try {
             iconArray[0] = new Icon();
@@ -40,7 +46,6 @@ public class IconManager {
             iconArray[12].setImage(ImageIO.read(new File("src/images/corridoio.png")));
             iconArray[13] = new Icon();
             iconArray[13].setImage(ImageIO.read(new File("src/images/tesoro.png")));
-
 
         } catch (IOException e) {
             throw new RuntimeException(e);

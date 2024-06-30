@@ -1,3 +1,7 @@
+/**
+ * Classe che implementa l'interfaccia grafica della varie stanze
+ */
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,10 +22,16 @@ public class RoomGUI extends JFrame {
 
    private ImageIcon image;
 
+    /**
+     * Costruttore
+     * @throws HeadlessException
+     */
     public RoomGUI() throws HeadlessException {
 
 
-        //FONT
+        /**
+         * FONT
+         */
         InputStream in = getClass().getResourceAsStream("font/PressStart2P-Regular.ttf");
         try {
             gamefont = Font.createFont(Font.TRUETYPE_FONT, in).deriveFont(12f);
@@ -31,11 +41,9 @@ public class RoomGUI extends JFrame {
             throw new RuntimeException(e);
         }
 
-
-       /* //Icon
-        image = new ImageIcon("images/tes.png");*/
-
-        //Frame
+        /**
+         * FRAME-WINDOW
+         */
         setSize(800,600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -44,7 +52,9 @@ public class RoomGUI extends JFrame {
         getContentPane().setBackground(Color.BLACK);
 
 
-        //Spazio Immagine
+        /**
+         * SPAZIO IMMAGINE
+         */
         imagePanel = new JPanel();
         imagePanel.setBounds(0,10,800, 275);
         imagePanel.setBackground(Color.BLACK);
@@ -58,7 +68,9 @@ public class RoomGUI extends JFrame {
         imagePanel.add(picLabel);
 
 
-        //Spazio Messaggio
+        /**
+         * SPAZIO MESSAGGIO DI TESTO
+         */
         textPanel = new JPanel();
         textPanel.setBounds(50,300, 700,300);
         textPanel.setBackground(Color.BLACK);
@@ -73,7 +85,9 @@ public class RoomGUI extends JFrame {
         textArea.setEditable(false);
 
 
-        //Input Commnad
+        /**
+         * BLOCCO INPUT DI TESTO
+         */
         textField = new JTextField("");
         textField.setBackground(Color.BLACK);
         textField.setForeground(Color.green);
@@ -98,18 +112,34 @@ public class RoomGUI extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public JPanel getImagePanel() {
         return imagePanel;
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public JPanel getTextPanel() {
         return textPanel;
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public JTextArea getTextArea() {
         return textArea;
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public JTextField getTextField() {
         return textField;
     }

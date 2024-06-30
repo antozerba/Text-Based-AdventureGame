@@ -1,3 +1,7 @@
+/**
+ * Classe iniziale dell'avvio del gioco con la creazione dei vari componenti necessari
+ */
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +17,23 @@ public class Game {
     private VisibilityManager manager;
     private Logic logic;
 
+
+    /**
+     * Costruttore
+     * @throws IOException
+     * @throws FontFormatException
+     */
+    public Game() throws IOException, FontFormatException {
+        startHandler = new StartHandler();
+        uploadHendler = new UploadHendler();
+        startGui = new StartGui();
+        startGui.setStartHandler(startHandler);
+        startGui.setUploadHendler(uploadHendler);
+    }
+
+    public RoomGUI getGui() {
+        return gui;
+    }
     public static Font getTitleFont() {
         return titleFont;
     }
@@ -27,10 +48,6 @@ public class Game {
 
     public void setStartGui(StartGui startGui) {
         this.startGui = startGui;
-    }
-
-    public RoomGUI getGui() {
-        return gui;
     }
 
     public void setGui(RoomGUI gui) {
@@ -70,22 +87,15 @@ public class Game {
     }
 
 
-
-    public Game() throws IOException, FontFormatException {
-        startHandler = new StartHandler();
-        uploadHendler = new UploadHendler();
-        startGui = new StartGui();
-        startGui.setStartHandler(startHandler);
-        startGui.setUploadHendler(uploadHendler);
-        //createRoom();
-        //gameRoom = new ArrayList<>();
-        //gameRoom.add(new Room("Savana"));
-        //gameRoom.add(new Room("Deserto"));
-
-
-    }
+    /**
+     * Classe interna che gestisce il bottone Start
+     */
     class StartHandler implements ActionListener{
 
+        /**
+         * Override del metodo dell'interfaccia ActionLister che gestisce gli eventi collegati al bottone
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             //Creating window for the room access
@@ -101,8 +111,16 @@ public class Game {
             startGui.setVisible(false);
         }
     }
+
+    /**
+     * Classe interna che gestisce il bottone Upload
+     */
     class UploadHendler implements ActionListener{
 
+        /**
+         * Override del metodo dell'interfaccia ActionLister che gestisce gli eventi collegati al bottone
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             gui = new RoomGUI();

@@ -45,14 +45,14 @@ public class Command {
         splitInputCommand = inputCommand.split(" ");
         if(logic.getActRoom().getName().equals(logic.getRoomByIndex(6).getName()) && correct){
 
-            if(inputCommand.equals("candela") && logic.canAccess(logic.getRoomByIndex(6))) {
+            if((inputCommand.equals("candela") || inputCommand.equals("Candela") ) && logic.canAccess(logic.getRoomByIndex(6))) {
                 correct = false;
                 this.logic.setPreviusRoom(this.logic.getActRoom());
                 gui.getTextField().setText("");
                 changeRoom();
             }
             else {
-                gui.getTextArea().setText("Riprova");
+                gui.getTextArea().setText("Risposta errata! Riprova");
                 gui.getTextField().setText("");
             }
         }
@@ -61,8 +61,7 @@ public class Command {
 
             if(futureRoom.getName().equals(logic.getRoomByIndex(6).getName())){
                 gui.getTextField().setText("");
-                System.out.println("ENTRA");
-                gui.getTextArea().setText("Sono alta quando sono giovane,e corta quando invecchio. Non ho mai freddo,\n" + "Chi sono?");
+                gui.getTextArea().setText("Sono alta quando sono giovane, e corta quando invecchio, non ho mai freddo. " + "Chi sono?");
                 logic.setActRoom(logic.getRoomByIndex(6));
 
             }else if (this.logic.canAccess(futureRoom)) {
@@ -76,9 +75,7 @@ public class Command {
             }
         } else if (count == 0) {
             count++;
-            System.out.println(inputCommand);
             this.logic.setMainCharacter(inputCommand);
-            System.out.println("Il nome del tuo personaggio è: " + this.logic.getMainCharacter().getName());
             firstRoom();
             gui.getTextField().setText("");
         } else if (this.logic.getOtherCommands().contains(splitInputCommand[0])) {
@@ -93,8 +90,10 @@ public class Command {
 
     private void firstRoom() {
         String s = logic.getMainCharacter().getName();
-        System.out.println(s);
-        gui.getTextArea().setText(s + logic.getRoomByIndex(0).getDescription() + "\n" + this.logic.showItem());
+        char[] arr = s.toCharArray();
+        arr[0] = java.lang.Character.toUpperCase(arr[0]);
+        String str = new String(arr);
+        gui.getTextArea().setText(str + logic.getRoomByIndex(0).getDescription() + "\n" + this.logic.showItem());
         ImageIcon icon = new ImageIcon(manager.iconArray[0].image);
         System.out.println(manager.iconArray[0].image);
         JLabel iconLabel = new JLabel(icon);
@@ -103,16 +102,11 @@ public class Command {
         gui.getImagePanel().repaint();
     }
 
-    public void printBackPack() {
-
-    }
 
     public void changeRoom() {
-        //Mi serve un metodo per ottonere la stanza giusta SIMONE dopo dimmi se ce l'hai già
         int actIndex = this.logic.getRoomIndex();
         //Metopo per modificare TextArea
         gui.getTextArea().setText(logic.findDescription() + "\n" + this.logic.showItem());
-
         //Creating the image and adding to the panel for replacing the old one
         ImageIcon icon = new ImageIcon(manager.iconArray[actIndex].image);
         JLabel iconLabel = new JLabel(icon);
@@ -129,11 +123,6 @@ public class Command {
         } else if (command[0].equals("take")) {
             int choice = Integer.parseInt(command[1]);
             takeFunction(choice);
-            return;
-        } else if (command[0].equals("release")) {
-            int choice = Integer.parseInt(command[1]);
-            //releaseFunction(choice);
-            return;
         } else if (command[0].equals("now")) {
             nowFunction();
         } else if (command[0].equals("backpack")) {
@@ -161,9 +150,8 @@ public class Command {
                 "1) Comandi direzionali [nord, sud, est, ovest] --> ti permettono di spostarti all'interno dellla mappa\n" +
                 "2) Comando [back] --> ti permette di tornare alla stanza precedente\n" +
                 "3) Comando [take <item>] --> ti permette di mettere nel tuo zaino un item che trovi nelle varie stanze\n" +
-                "4) Comando [release <item>] --> ti permette di togliere dallo zaino un item\n" +
-                "5) Comando [backpack] --> ti permette di visualizzare quello che c'è nello zaino\n" +
-                "6) Comando [now] --> indica la stanza in cui attualemnte ci troviamo\n");
+                "4) Comando [backpack] --> ti permette di visualizzare quello che c'è nello zaino\n" +
+                "5) Comando [now] --> indica la stanza in cui attualemnte ci troviamo\n");
         gui.getTextArea().setText(s);
     }
 
@@ -182,7 +170,7 @@ public class Command {
             this.logic.getActRoom().getObject().remove(choice);
 
         } else {
-            System.out.println("coglione");
+            System.out.println("Comando non riconosciuto");
         }
 
     }
@@ -287,7 +275,6 @@ public class Command {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
             DOMSource domSource = new DOMSource(document);
             StreamResult streamResult = new StreamResult(new File("src/upload.xml"));
             transformer.transform(domSource, streamResult);
