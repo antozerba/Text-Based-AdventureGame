@@ -1,7 +1,5 @@
 import org.junit.jupiter.api.Test;
 
-import java.util.Scanner;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -15,27 +13,15 @@ class LogicTest {
     }
 
     @Test
-    void testSetScan() {
-        Logic logic = new Logic();
-        // Assuming setScan sets a value, test its functionality
-        logic.setScan(new Scanner(System.in));
-        assertEquals("testValue", logic.getScan());
-    }
-
-    // Repeat similar tests for other getters and setters as needed
-
-    @Test
     void testSetMainCharacter() {
         Logic logic = new Logic();
-        // Assuming setMainCharacter sets a main character, test its functionality
         logic.setMainCharacter("MainCharacter");
-        assertEquals("MainCharacter", logic.getMainCharacter());
+        assertEquals("MainCharacter", logic.getMainCharacter().getName());
     }
 
     @Test
     void testCreateRoom() {
         Logic logic = new Logic();
-        // Assuming createRoom creates a room, test its functionality
         logic.createRoom();
         assertNotNull(logic.getRoomByIndex(0).getName());
     }
@@ -46,9 +32,7 @@ class LogicTest {
         logic.setGameRoom(new Room[14]);
         logic.createRoom();
         logic.setRoom();
-        // Assuming nextRoom advances to the next room, test its functionality
         logic.nextRoom(logic.getRoomByIndex(0), "nord");
-        // Add assertions based on the expected behavior of nextRoom()
     }
 
 

@@ -16,6 +16,7 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Saving {
@@ -73,7 +74,8 @@ public class Saving {
                     .build();
 
             // Scarica il file dall'S3 bucket
-            GetObjectResponse response = client.getObject(getObjectRequest, Paths.get(downloadFilePath));
+            Path path = Paths.get(downloadFilePath);
+            GetObjectResponse response = client.getObject(getObjectRequest, path);
 
             System.out.println("File scaricato con successo: " + response);
         } catch (S3Exception e) {
@@ -90,5 +92,16 @@ public class Saving {
      */
     public void setClient(S3Client client) {
         this.client = client;
+    }
+    protected PropertiesConfiguration getConfig() {
+        return config;
+    }
+
+    public void setConfig(PropertiesConfiguration config) {
+        this.config = config;
+    }
+
+    protected S3Client createS3Client() {
+        return client;
     }
 }

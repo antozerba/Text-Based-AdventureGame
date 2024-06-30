@@ -2,11 +2,15 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-import static org.mockito.Mockito.mockStatic;
+import java.nio.file.Path;
+
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class SavingTest {
@@ -18,37 +22,38 @@ class SavingTest {
     void setUp() throws ConfigurationException {
         mockS3Client = Mockito.mock(S3Client.class);
         mockConfig = Mockito.mock(PropertiesConfiguration.class);
-
-        when(mockConfig.getString("aws.access_key_id")).thenReturn("testAccessKeyId");
-        when(mockConfig.getString("aws.secret_access_key")).thenReturn("testSecretAccessKey");
-        when(mockConfig.getString("aws.s3.bucket")).thenReturn("testBucket");
-        when(mockConfig.getString("aws.s3.region")).thenReturn("us-west-2");
-
-        try (MockedStatic<PropertiesConfiguration> mockedConfig = mockStatic(PropertiesConfiguration.class)) {
-            mockedConfig.when(() -> new PropertiesConfiguration("src/resources/application.properties")).thenReturn(mockConfig);
-
-            saving = new Saving();
-            saving.setClient(mockS3Client); // Inject the mock S3Client
-        }
+        saving = new Saving();
+        saving.setConfig(mockConfig);
+        saving.setClient(mockS3Client);
     }
 
     @Test
     void testUpload() throws ConfigurationException {
-        // Capture the PutObjectRequest and RequestBody passed to putObject method
-        /*ArgumentCaptor<PutObjectRequest> putObjectRequestCaptor = ArgumentCaptor.forClass(PutObjectRequest.class);
-        ArgumentCaptor<RequestBody> requestBodyCaptor = ArgumentCaptor.forClass(RequestBody.class);
+        // Mock the config to return the necessary values
+        when(mockConfig.getString("aws.access_key_id")).thenReturn("accessKeyId");
+        when(mockConfig.getString("aws.secret_access_key")).thenReturn("secretAccessKey");
+        when(mockConfig.getString("aws.s3.bucket")).thenReturn("bucket");
+        when(mockConfig.getString("aws.s3.region")).thenReturn("region");
 
+        // Call the upload method
         saving.upload();
 
-        verify(mockS3Client, times(1)).putObject(putObjectRequestCaptor.capture(), requestBodyCaptor.capture());
+        // Verify that the putObject method was called on the mock S3 client
+        verify(mockS3Client).putObject(Mockito.any(PutObjectRequest.class), Mockito.any(RequestBody.class));
+    }
 
-        PutObjectRequest capturedRequest = putObjectRequestCaptor.getValue();
-        RequestBody capturedRequestBody = requestBodyCaptor.getValue();
+    @Test
+    void testDownload() {
+        // Mock the config to return the necessary values
+        when(mockConfig.getString("aws.access_key_id")).thenReturn("accessKeyId");
+        when(mockConfig.getString("aws.secret_access_key")).thenReturn("secretAccessKey");
+        when(mockConfig.getString("aws.s3.bucket")).thenReturn("bucket");
+        when(mockConfig.getString("aws.s3.region")).thenReturn("region");
 
-        assertEquals("testBucket", capturedRequest.bucket());
-        assertEquals("upload.xml", capturedRequest.key());
+        // Call the download method
+        saving.download();
 
-        // Verify the content of RequestBody
-        assertEquals(new File("src/upload.xml"), capturedRequestBody.contentAsFile().orElse(null));*/
+        // Verify that the getObject method was called on the mock S3 client
+        verify(mockS3Client).getObject(Mockito.any(GetObjectRequest.class), Mockito.any(Path.class));
     }
 }
