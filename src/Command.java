@@ -1,7 +1,6 @@
 import org.apache.commons.configuration.ConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,6 +22,11 @@ public class Command {
     public int count;
     public boolean correct = true;
 
+    /**
+     * Costruttore
+     * @param roomGUi
+     * @param logic
+     */
     public Command(RoomGUI roomGUi, Logic logic) {
         gui = roomGUi;
         this.logic = logic;
@@ -38,7 +42,10 @@ public class Command {
         this.count = x;
     }
 
-    //Method for receiving input form the JTEXTFIELD as a String
+    /**
+     * Metodo che riceve l'input tramite l'oggetto JTextField e lo converte, in base al caso alla specifica azione
+     * @param inputCommand
+     */
     public void receiveInput(String inputCommand) {
         String[] splitInputCommand;
         inputCommand = inputCommand.toLowerCase();
@@ -88,12 +95,16 @@ public class Command {
 
     }
 
+    /**
+     * Metodo per accedere e visualizzare la prima stanza (Giungla)
+     */
     private void firstRoom() {
         String s = logic.getMainCharacter().getName();
         char[] arr = s.toCharArray();
         arr[0] = java.lang.Character.toUpperCase(arr[0]);
         String str = new String(arr);
-        gui.getTextArea().setText(str + logic.getRoomByIndex(0).getDescription() + "\n" + this.logic.showItem());
+        //gui.getTextArea().setText(str + logic.getRoomByIndex(0).getDescription() + "\n" + this.logic.showItem());
+        gui.getTextArea().setText(str + logic.findDescription() + "\n" + this.logic.showItem());
         ImageIcon icon = new ImageIcon(manager.iconArray[0].image);
         System.out.println(manager.iconArray[0].image);
         JLabel iconLabel = new JLabel(icon);
@@ -102,7 +113,9 @@ public class Command {
         gui.getImagePanel().repaint();
     }
 
-
+    /**
+     * Metodo che permette la dispozione sull'interfaccia grafica dei componenti della stanza successiva
+     */
     public void changeRoom() {
         int actIndex = this.logic.getRoomIndex();
         //Metopo per modificare TextArea
@@ -117,6 +130,10 @@ public class Command {
 
     }
 
+    /**
+     * Metodo che gestisce tutti gli altri input diversi da comandi direzionali per spostarsi dalle stanze e il relativo legato all' indovinello
+     * @param command
+     */
     public void plusCommand(String[] command) {
         if (command[0].equals("help")) {
             helpFunction();
@@ -144,7 +161,9 @@ public class Command {
         }
     }
 
-
+    /**
+     * Metodo che mostra all'utente i relativi comandi possibili
+     */
     public void helpFunction() {
         String s = ("Questi sono tutti i comandi che puoi usare:\n" +
                 "1) Comandi direzionali [nord, sud, est, ovest] --> ti permettono di spostarti all'interno dellla mappa\n" +
@@ -155,6 +174,9 @@ public class Command {
         gui.getTextArea().setText(s);
     }
 
+    /**
+     * Metodo che mostra all'utente i suoi items nel backpack
+     */
     public void backpackViewer() {
         String s = ("Nel tuo zaino hai: \n");
         for (int i = 0; i < this.logic.getMainCharacter().getBackpack().size(); i++) {
@@ -163,6 +185,10 @@ public class Command {
         gui.getTextArea().setText(s);
     }
 
+    /**
+     * Gestisce il comanda take relativo al raccoglimento di oggetti trovati nelle varie stanze
+     * @param choice
+     */
     private void takeFunction(int choice) {
         if (choice >= 0 && choice < this.logic.getActRoom().getObject().size()) {
             this.logic.getMainCharacter().addItem(this.logic.getActRoom().getObject().get(choice));
@@ -175,6 +201,9 @@ public class Command {
 
     }
 
+    /**
+     * Metodo che permetter al player di capire in quale stanza si trova
+     */
     public void nowFunction() {
         gui.getTextArea().setText("Ti trovi: " + this.logic.getActRoom().getName());
         gui.getTextField().setText("");
@@ -196,15 +225,29 @@ public class Command {
             }
 
     }
+
+    /**
+     * Metodo che gestisce il salvataggio della partita sul bucket S3 di AWS
+     * @return
+     * @throws ConfigurationException
+     */
     public boolean save() throws ConfigurationException {
         createFile();
         saving.upload();
         return true;
     }
+
+    /**
+     * Metodo che permette di caricare la partita precedente
+     * @throws ConfigurationException
+     */
     private void download() throws ConfigurationException {
         saving.download();
     }
 
+    /**
+     * Metodo che crea il file upload.xml che contiene i dati della partita giocata 
+     */
     public void createFile(){
         try{
             DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
