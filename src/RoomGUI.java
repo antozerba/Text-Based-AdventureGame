@@ -114,6 +114,10 @@ public class RoomGUI extends JFrame {
         return textField;
     }
 
+    /**
+     * Assegna manager a TextField
+     * @param manager
+     */
     public void setManager(VisibilityManager manager) {
         this.manager = manager;
         textField.addKeyListener(manager);
