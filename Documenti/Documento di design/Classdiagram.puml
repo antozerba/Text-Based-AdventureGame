@@ -192,14 +192,22 @@ class StartGUI {
 
 class Savings {
   - PropertiesConfiguration config
-  + int save()
-  + int uploadAccessKey()
-  + int savingConfiguration()
-  + int uploadFile()
-  + String saveConfigurationData()
-  + String saveAccessCredentials
-  + void setCredentials(String accessCreds)
-  + void saving(PropertiesConfiguration config)
+  - String accessKeyId
+  - String secretAccessKey
+  - String bucket
+  - String regionName
+  - String fileName 
+  - String filePath 
+  - Region region
+  - AwsBasicCredentials awsCreds
+  - S3Client client
+  + Saving()
+  + void upload()
+  + void download()
+  + void setClient(S3Client)
+  + PropertiesConfiguration getConfig()
+  + void setConfig(PropertiesConfig)
+  + S3Client createS3Client()
 }
 
 class Icon {
@@ -215,20 +223,6 @@ class IconManager {
   - IconManager manager
   + IconManager()
   + void addImage()
-}
-
-class GamePanel {
-    - Font titleFont
-    - StartGUI StartGUI
-    - RoomGUI gui
-    - StartHandler startHandler
-    - UploadHendler uploadHendler
-    - VisibilityManager manager
-    + Game()
-    + void startGame()
-     - class StartHandler
-    + void ActionPerformed(ActionEvent)
-    - class UploadHendler
 }
 
 class ObjectGame {
@@ -249,16 +243,23 @@ class ObjectGame {
 VisibilityManager "1" --> "1..*" Command : Manages
 Command "1..n" --> "1" Character : Guide
 Character "1" --> "1..*" Room: Goes through
-Character "1" --> "1..*" Item: Finds
+Character "1" o-- "1..*" Item: Finds
 Character "1" --> "1" Game : Plays
+Item "1..*" --|> "1" ObjectGame : Describes
 Logic "1" --> "1" Game: Runs
-StartGUI "1" --> "1" DeathJungle : Starts
+
 DeathJungle "1" --> "1" Game : Initializes
-GamePanel "1" --> "1" Game : Displays
-GamePanel "1" --> "1..*" Icon : Shows
+Room "1" --o "1" Logic
+Room "1" o-- "1" Item
+RoomGUI "1" --- "1" Game : Create
+Character "1" --o "1" Logic
 IconManager "1" --> "1..*" Icon : Manages
-ObjectGame "1" --> "1..*" Item : Describes
+ObjectGame "1" <|-- "1..*" Item : Describes
 RoomGUI "1..*" --> "1..*" Room : Represents
-Direction "1..*" --> "1..*" Room : Conduct to
+Command "1" --> "1" IconManager : Controls
+Direction "1..*" --* "1..*" Room : Conduct to
 Command "1..*" --> "1" Savings : Invocates
+Command "1..*" ..> "1..*" RoomGUI : Modify
+StartGUI "1" --> "1" Game : Displays
+VisibilityManager "1..*" --- "1" RoomGUI
 @enduml
