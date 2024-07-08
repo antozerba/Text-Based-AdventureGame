@@ -18,8 +18,9 @@ Alt Movimento
                 Command -> Logic: showError()
             end
 else Raccoglie oggetti
-    Attore -> Command : takeItems()
     Attore <- Command : showItems()
+    Attore -> Command : takeItems()
+    
     Attore -> Command : addItem()
 else Altro Comando 
     Attore <- Command : showError()
@@ -29,6 +30,3 @@ end
 
 
 
-
-
-   

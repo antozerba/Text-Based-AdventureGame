@@ -4,10 +4,10 @@ participant Command
 participant Logic 
 
 Attore -> Command: sendRequest()
-Command -> Logic: takeItems()
+Command <- Logic: showItems()
 Par 
-    Command -> Logic: showItem()
     Command <- Logic: releaseItem()
+    Command -> Logic: takeItems()
 end
 Alt Oggetto presente 
     Command <- Logic: addItem()
@@ -17,7 +17,6 @@ end
 Critical Stato aggiornato 
 Attore <- Command: updateStateGame()
 else Stato non aggiornato
-Attore <- Command: changeRoom()
+Attore <- Command: showError()
 end
 @enduml
-
