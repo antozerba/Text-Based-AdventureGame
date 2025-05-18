@@ -44,7 +44,7 @@ in alternativo è possibile eseguire il il JAR situato nella cartella /target
 ```bash
 java -jar target/DeathJungle-1.0-SNAPSHOT.jar
 ```
-
+![GUI](startgui.png)
 
 
 
