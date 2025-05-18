@@ -1,5 +1,50 @@
-# Text-Based-AdventureGame
-Welcome to the Death-Jungle game! This 2D text-based adventure game that tells the story of an adventurer lost in the jungle in search of the Lost Treasure. The player navigates through multiple rooms, interacts with various object. The goal is to find the treasure by collecting a lot of different item and solve various puzzless.
-# Documentation
-You can find all the necessary documentation in the "Documenti" folder within the project. In addition to the various derivables, you can find a manual that illustrates all the specifications of the project and all the steps necessary for installing it.
-The Death-Jungle Team thanks you and I hope you have fun.
+# Death Jungle – Gioco di Avventura Testuale
+
+Benvenuto in **Death Jungle**, un gioco di avventura testuale 2D in cui vestirai i panni di un avventuriero disperso nella giungla alla ricerca del Tesoro Perduto. Esplora ambienti misteriosi, interagisci con oggetti e risolvi enigmi per raggiungere il tuo obiettivo.
+
+## Struttura del Progetto
+
+- `src/` : Contiene il codice sorgente del gioco.
+- `test/` : Include i test unitari.
+- `Documenti/` : Documentazione dettagliata, inclusi manuali e specifiche tecniche.
+- `pom.xml` : File di configurazione per Maven.
+
+## Requisiti
+
+- **Java**: Versione **11** o superiore.
+- **Maven**: Versione **3.6** o superiore.
+
+Verifica le versioni installate con:
+
+```bash
+java -version
+mvn -v
+```
+## Intallazione
+1. Clona il repository
+```bash
+git clone https://github.com/antozerba/Text-Based-AdventureGame.git
+cd Text-Based-AdventureGame
+```
+2. Compila il progetto
+```bash
+mvn clean install
+```
+3. Esegui i test (facoltativi)
+```bash
+mvn test
+```
+
+## Avvio del gioco
+Il gioco è runnabile attraverso il comando maven
+```bash
+mvn exec:java 
+```
+in alternativo è possibile eseguire il il JAR situato nella cartella /target
+```bash
+java -jar target/DeathJungle-1.0-SNAPSHOT.jar
+```
+
+
+
+
